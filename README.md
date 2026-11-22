@@ -2,6 +2,12 @@
 
 STAT3013 project: early detection of silent customer disengagement in e-commerce. The repository contains a reproducible statistical study and a web demo. The term “ghost customer” is an operational label defined by the team, not a directly observed mental state or proof of churn.
 
+## Project resources
+
+- **Dataset:** [Retailrocket e-commerce dataset, version 2](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset). Download `events.csv` and verify its hash using the setup instructions below. The dataset has its own terms and is not included in this repository.
+- **Narrated demo video:** Upload pending. The direct Cloud video URL will be added here after the final recording is available.
+- **Source code license:** [MIT License](LICENSE). The license covers the team's original repository code, not the third-party dataset.
+
 ## Current status
 
 The repository now contains a reproducible **local real-data demo**: data pipeline, descriptive and inferential statistics, OLS and logistic regression, a short-series naive forecast, model evaluation, saved-model inference, seven API routes, and a Next.js dashboard. On 20 November 2026 the integrated real-data check passed locally. Raw/processed visitor data and the trained model stay out of Git, so a new machine must rebuild them. The 4+2+2 cohort and Ghost label remain proposed research decisions; see `docs/decision_log.md` and the observation-only ablation before making performance claims.
@@ -13,8 +19,8 @@ This is the **real-data** path for a personal demo machine. You need Git, Python
 1. Clone the team integration branch (or update an existing clone):
 
    ```powershell
-   git clone https://github.com/ztdayyyyyyyyyy2112/GhostCustomer.git
-   Set-Location GhostCustomer
+   git clone https://github.com/ztdayyyyyyyyyy2112/STAT3013.R11_Group07.git
+   Set-Location STAT3013.R11_Group07
    git switch develop
    git pull --ff-only origin develop
    ```
