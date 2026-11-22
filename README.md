@@ -5,7 +5,7 @@ STAT3013 project: early detection of silent customer disengagement in e-commerce
 ## Project resources
 
 - **Dataset:** [Retailrocket e-commerce dataset, version 2](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset). Download `events.csv` and verify its hash using the setup instructions below. The dataset has its own terms and is not included in this repository.
-- **Narrated demo video:** Upload pending. The direct Cloud video URL will be added here after the final recording is available.
+- **Narrated demo video:** [Watch the Ghost Customer project demo on YouTube](https://youtu.be/cM8jHzWMvU4).
 - **Source code license:** [MIT License](LICENSE). The license covers the team's original repository code, not the third-party dataset.
 
 ## Current status
