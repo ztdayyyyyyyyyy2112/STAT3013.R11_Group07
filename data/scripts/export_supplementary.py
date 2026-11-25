@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from data.scripts.cohort import iter_cohort_snapshots
+from data.scripts.cohort import build_cohort, iter_cohort_snapshots
 from data.scripts.config import ROOT, load_config, verify_source
 from data.scripts.features import build_features
 from data.scripts.labels import build_labels
@@ -100,7 +100,7 @@ def _gap_sensitivity(events: pd.DataFrame, features: pd.DataFrame, labels: pd.Da
     scenario = _preferred_scenario(config)
     results = []
     for gap in config["sessions"]["gap_minutes"]:
-        sessions, _ = build_sessions(events, int(gap))
+        sessions = build_sessions(events, int(gap))[0]
         sessions["week"] = sessions.session_start_utc.dt.normalize() - pd.to_timedelta(sessions.session_start_utc.dt.dayofweek, unit="D")
         weekly = sessions.groupby(["visitorid", "week"], sort=False).size().rename("sessions").reset_index()
         counts = features[["visitorid", "snapshot_date"]].copy()
@@ -138,10 +138,8 @@ def _gap_sensitivity(events: pd.DataFrame, features: pd.DataFrame, labels: pd.Da
 def _duplicate_sensitivity(events: pd.DataFrame, config: dict) -> dict:
     kept = events.loc[~events.is_exact_duplicate].copy()
     scenario = _preferred_scenario(config)
-    traces = list(iter_cohort_snapshots(kept, config, scenario))
-    cohort = pd.concat(traces, ignore_index=True)
-    cohort = cohort.loc[cohort.history_eligible]
-    sessions, _ = build_sessions(kept, int(config["sessions"]["preferred_gap_minutes"]))
+    cohort = build_cohort(kept, config, scenario)
+    sessions = build_sessions(kept, int(config["sessions"]["preferred_gap_minutes"]))[0]
     features = build_features(kept, sessions, cohort, config)
     labels = build_labels(kept, sessions, cohort, features, config)
     return {"policy": "exclude excess exact duplicates only for sensitivity; primary pipeline retains them",
@@ -195,15 +193,12 @@ def main() -> int:
     source = verify_source(ROOT / config["source"]["raw_path"], config["source"]["sha256"])
     out = ROOT / "data/processed"
     events = pd.read_parquet(out / "events_clean.parquet")
-    sessions = pd.read_parquet(out / "sessions.parquet")
     features = pd.read_parquet(out / "customer_features.parquet")
     labels = pd.read_parquet(out / "customer_labels.parquet")
-    weekly = pd.read_parquet(out / "customer_weekly.parquet")
 
     primary_scenario = _preferred_scenario(config)
-    traces = list(iter_cohort_snapshots(events, config, primary_scenario))
     primary_flow = []
-    for trace in traces:
+    for trace in iter_cohort_snapshots(events, config, primary_scenario):
         primary_flow.append({"scenario_id": primary_scenario["id"], "snapshot_date": trace.snapshot_date.iloc[0].strftime("%Y-%m-%d"),
                             "candidates": int(len(trace)), "history_eligible": int(trace.history_eligible.sum()),
                             "audit_complete": int(trace.eligible_audit.sum()), "research_complete": int(trace.eligible_research.sum()),
@@ -217,6 +212,8 @@ def main() -> int:
     if not args.skip_duplicate_sensitivity:
         sensitivity["duplicate_exclusion"] = _duplicate_sensitivity(events, config)
     (out / "sensitivity.json").write_text(json.dumps(sensitivity, indent=2), encoding="utf-8")
+    del events
+    weekly = pd.read_parquet(out / "customer_weekly.parquet")
     details = _export_details(out, features, labels, weekly, config)
 
     manifest_path = out / "manifest.json"
