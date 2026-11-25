@@ -1,7 +1,7 @@
 # Four-week confirmation analysis (working evidence)
 
-**Scenario:** `b4_o2_c4` — 4-week baseline, 2-week observation, 4-week confirmation.  
-**Dataset:** Retailrocket `events.csv`, 2,756,101 rows, SHA-256 `3745aa83238b1e6d44d8fda209807899f420084398f94ddf745f3cbcfecbf9e7`.  
+**Scenario:** `b4_o2_c4` — 4-week baseline, 2-week observation, 4-week confirmation.
+**Dataset:** Retailrocket `events.csv`, 2,756,101 rows, SHA-256 `3745aa83238b1e6d44d8fda209807899f420084398f94ddf745f3cbcfecbf9e7`.
 **Pipeline:** `audit_compat`; feature and label hashes: `8b2fcd37349e67254364d9950fb4d5965b33e1cf1bb233c15de985cd85743997` and `ee1c3b300afc98c6753eb8e33df040225f618d0f57d59d5e4d9b5bba0781b2ae`.
 
 This note is the current quantitative reference for Lâm's cohort, descriptive and sensitivity work and Long's inference, regression and forecast work. The results are reproducible artifacts from the pinned source, but are still exploratory because the team has not approved the cohort and operational label. Older documents may contain the superseded 4+2+2 analysis; do not combine those denominators or metrics with this note.
