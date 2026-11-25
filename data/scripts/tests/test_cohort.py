@@ -23,7 +23,8 @@ def test_cohort_exclusion_precedence():
 @pytest.mark.skipif(not (ROOT / "data/raw/events.csv").exists(), reason="raw Retailrocket data is not committed")
 def test_audit_compat_matches_golden_counts():
     events = clean_events(ROOT / "data/raw/events.csv")
-    cohort = build_cohort(events, DEFAULT_CONFIG, DEFAULT_CONFIG["scenarios"][0], "audit_compat")
+    scenario = next(s for s in DEFAULT_CONFIG["scenarios"] if s["id"] == "b4_o2_c2")
+    cohort = build_cohort(events, DEFAULT_CONFIG, scenario, "audit_compat")
     complete = cohort.loc[cohort["eligible_audit"]]
     assert len(complete) == 85_899
     assert complete.visitorid.nunique() == 24_768
