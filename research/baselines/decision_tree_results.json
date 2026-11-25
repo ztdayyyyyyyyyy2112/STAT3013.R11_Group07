@@ -1,9 +1,9 @@
 {
   "algorithm": "DecisionTreeClassifier",
   "owner": "Ha Nguyen Viet Thanh",
-  "input_sha256": "f39af40962be6bb440f32fb63cd8e7ddf116f508ea95d8a35482dc5264df36dd",
+  "input_sha256": "3c3edd64b8f5bd861a812f2d929c6b39281e6c061a5f04d3eba5f7001c7cd331",
   "label_version": "ghost-baseline-ratio-v1-proposed",
-  "split_version": "visitor-temporal-v1_tr2015-07-06_va2015-07-27_te2015-08-24_f50-25-25_s3013",
+  "split_version": "visitor-temporal-v2_tr2015-06-22_va2015-07-20_te2015-08-17_f50-25-25_s3013",
   "observed_through": "2015-09-14",
   "feature_names": [
     "feature_sessions_1w",
@@ -58,119 +58,127 @@
   },
   "decision_threshold": 0.5,
   "train": {
-    "n": 2214,
-    "ghost_n": 433
+    "n": 1510,
+    "ghost_n": 615
   },
   "validation": {
-    "n": 454,
-    "ghost_n": 119,
-    "ghost_prevalence": 0.2621145374449339,
-    "pr_auc": 0.8896006523582847,
-    "roc_auc": 0.9546971027216855,
-    "precision": 0.625,
-    "recall": 0.9243697478991597,
-    "f1": 0.7457627118644068,
-    "brier": 0.0947653441497523,
+    "n": 352,
+    "ghost_n": 140,
+    "ghost_prevalence": 0.3977272727272727,
+    "pr_auc": 0.8873966675394432,
+    "roc_auc": 0.9209568733153639,
+    "precision": 0.7402597402597403,
+    "recall": 0.8142857142857143,
+    "f1": 0.7755102040816326,
+    "brier": 0.11185366327966668,
     "confusion_matrix": [
       [
-        269,
-        66
+        172,
+        40
       ],
       [
-        9,
-        110
+        26,
+        114
       ]
     ]
   },
   "test": {
-    "n": 430,
-    "ghost_n": 109,
-    "ghost_prevalence": 0.2534883720930233,
-    "pr_auc": 0.9272626507726336,
-    "roc_auc": 0.9729915116179371,
-    "precision": 0.6287425149700598,
-    "recall": 0.963302752293578,
-    "f1": 0.7608695652173914,
-    "brier": 0.08031488084260346,
+    "n": 330,
+    "ghost_n": 153,
+    "ghost_prevalence": 0.4636363636363636,
+    "pr_auc": 0.8944438722174439,
+    "roc_auc": 0.9045086961338207,
+    "precision": 0.7643312101910829,
+    "recall": 0.7843137254901961,
+    "f1": 0.7741935483870968,
+    "brier": 0.12959660606258896,
     "confusion_matrix": [
       [
-        259,
-        62
+        140,
+        37
       ],
       [
-        4,
-        105
+        33,
+        120
       ]
     ]
   },
   "majority_test": {
-    "n": 430,
-    "ghost_n": 109,
-    "ghost_prevalence": 0.2534883720930233,
-    "pr_auc": 0.2534883720930233,
+    "n": 330,
+    "ghost_n": 153,
+    "ghost_prevalence": 0.4636363636363636,
+    "pr_auc": 0.4636363636363636,
     "roc_auc": 0.5,
     "precision": 0.0,
     "recall": 0.0,
     "f1": 0.0,
-    "brier": 0.2534883720930233,
+    "brier": 0.4636363636363636,
     "confusion_matrix": [
       [
-        321,
+        177,
         0
       ],
       [
-        109,
+        153,
         0
       ]
     ]
   },
   "feature_importances": [
     {
-      "feature": "feature_baseline_sessions_per_week",
-      "importance": 0.8283833141803665
-    },
-    {
       "feature": "feature_eds",
-      "importance": 0.1022981241125171
+      "importance": 0.7543512102761905
     },
     {
-      "feature": "feature_views_1w",
-      "importance": 0.020994730106408073
+      "feature": "feature_baseline_sessions_per_week",
+      "importance": 0.15856163755546993
     },
     {
-      "feature": "feature_recency_days",
-      "importance": 0.01414712163978535
+      "feature": "feature_n_distinct_items_pre",
+      "importance": 0.014372221074179532
     },
     {
-      "feature": "feature_sessions_2w",
-      "importance": 0.00832311424697438
+      "feature": "feature_slope_sessions_6w",
+      "importance": 0.012059321851245882
     },
     {
       "feature": "feature_days_since_last_view",
-      "importance": 0.006137519779859877
+      "importance": 0.011888649084857735
     },
     {
-      "feature": "feature_cart_to_view",
-      "importance": 0.005914362366230734
-    },
-    {
-      "feature": "feature_decay_ratio",
-      "importance": 0.005078214196624409
+      "feature": "feature_days_since_last_purchase",
+      "importance": 0.01024994237701339
     },
     {
       "feature": "feature_total_events_pre",
-      "importance": 0.004968298718069153
+      "importance": 0.008520305843428737
     },
     {
-      "feature": "feature_events_4w",
-      "importance": 0.0020747255197973865
+      "feature": "feature_views_4w",
+      "importance": 0.00817273569407577
     },
     {
-      "feature": "feature_frequency_events_per_active_week",
-      "importance": 0.0016804751333671906
+      "feature": "feature_active_days_4w",
+      "importance": 0.0074853678022507135
+    },
+    {
+      "feature": "feature_sessions_6w",
+      "importance": 0.007218947777077405
+    },
+    {
+      "feature": "feature_observation_events_per_week",
+      "importance": 0.00677513381240648
+    },
+    {
+      "feature": "feature_recency_days",
+      "importance": 0.00034452685180405416
     },
     {
       "feature": "feature_sessions_1w",
+      "importance": 0.0
+    },
+    {
+      "feature": "feature_sessions_2w",
       "importance": 0.0
     },
     {
@@ -178,15 +186,11 @@
       "importance": 0.0
     },
     {
-      "feature": "feature_sessions_6w",
+      "feature": "feature_views_1w",
       "importance": 0.0
     },
     {
       "feature": "feature_views_2w",
-      "importance": 0.0
-    },
-    {
-      "feature": "feature_views_4w",
       "importance": 0.0
     },
     {
@@ -234,11 +238,11 @@
       "importance": 0.0
     },
     {
-      "feature": "feature_events_6w",
+      "feature": "feature_events_4w",
       "importance": 0.0
     },
     {
-      "feature": "feature_active_days_4w",
+      "feature": "feature_events_6w",
       "importance": 0.0
     },
     {
@@ -246,7 +250,7 @@
       "importance": 0.0
     },
     {
-      "feature": "feature_days_since_last_purchase",
+      "feature": "feature_frequency_events_per_active_week",
       "importance": 0.0
     },
     {
@@ -258,7 +262,7 @@
       "importance": 0.0
     },
     {
-      "feature": "feature_observation_events_per_week",
+      "feature": "feature_decay_ratio",
       "importance": 0.0
     },
     {
@@ -270,11 +274,11 @@
       "importance": 0.0
     },
     {
-      "feature": "feature_slope_sessions_6w",
+      "feature": "feature_slope_sessions_6w_is_null",
       "importance": 0.0
     },
     {
-      "feature": "feature_slope_sessions_6w_is_null",
+      "feature": "feature_cart_to_view",
       "importance": 0.0
     },
     {
@@ -283,10 +287,6 @@
     },
     {
       "feature": "feature_any_purchase_pre",
-      "importance": 0.0
-    },
-    {
-      "feature": "feature_n_distinct_items_pre",
       "importance": 0.0
     }
   ],

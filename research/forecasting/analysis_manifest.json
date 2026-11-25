@@ -1,25 +1,25 @@
 {
   "data_mode": "real",
   "source_events_sha256": "3745aa83238b1e6d44d8fda209807899f420084398f94ddf745f3cbcfecbf9e7",
-  "labels_csv_sha256": "f5ff2f33d59a9def9f1aa31d2c6bd56771dd3a435e3a7bca3bc8162cef75b657",
-  "weekly_rates_sha256": "cc97056f220a771f0a184335db95670cb881ad308829281fbe57dee32852d9dd",
-  "forecast_analysis_sha256": "0d7164b42dbd8e1e71bf7fbea37bc2c7debee24f96180a65cd8b3ffc713c2ba2",
-  "api_result_sha256": "f55c9d509db678420501e85a631fb6a7466c6a2a6bb1a3665b2afe0c0b64c627",
-  "n_mature_weeks": 12,
+  "labels_csv_sha256": "37c3a9d2ffcffa49fe2bedb3be909da8f7d7cb8b8c0dfff563e2f12aa6dc5e0e",
+  "weekly_rates_sha256": "b29648260d5267a20160cdf46303cd81229cb5f3c36f9134a5554ba333444af8",
+  "forecast_analysis_sha256": "f4f7ba2cb8d69b6b4f6c7b901debd63587ebcfa2394d926d0be34d02c263de20",
+  "api_result_sha256": "af3037d630568f95b4ac1b50ac6ef6137df44907812aa1062fd92646c7247189",
+  "n_mature_weeks": 10,
   "method": "Last mature value (naive)",
   "test_metrics": {
     "naive": {
-      "n": 3,
-      "mae": 0.0025541785639219307,
-      "rmse": 0.003278180834279449,
-      "smape_percent": 8.151160813449392
+      "n": 2,
+      "mae": 0.008275695065484742,
+      "rmse": 0.008409672521160164,
+      "smape_percent": 10.099420276609154
     },
     "selected": {
-      "n": 3,
-      "mae": 0.0025541785639219307,
-      "rmse": 0.003278180834279449,
-      "smape_percent": 8.151160813449392
+      "n": 2,
+      "mae": 0.008275695065484742,
+      "rmse": 0.008409672521160164,
+      "smape_percent": 10.099420276609154
     }
   },
-  "decision_status": "Exploratory under proposed 4+2+2 cohort and operational label"
+  "decision_status": "Exploratory under 4+2+4 cohort and operational label"
 }

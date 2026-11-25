@@ -1,18 +1,18 @@
 {
   "schema_version": "ols-v1",
   "data_mode": "real",
-  "input_sha256": "998d698b777c35d44c3df1144d016986ec02cdaab2ebfa0a69fc89869a1ab4d9",
+  "input_sha256": "c3087cf7d1a69d5c94c3f56a598eebabb26e5a6cbd9fd232afc9f65003fbade1",
   "outcome": "next_engagement",
-  "outcome_definition": "future sessions per week over the 2-week confirmation horizon",
+  "outcome_definition": "future sessions per week over the 4-week confirmation horizon",
   "split": {
-    "input_rows": 85899,
+    "input_rows": 72711,
     "immature_rows_excluded": 0,
-    "training_rows": 43536,
-    "training_visitors": 15689,
-    "test_rows": 17368,
-    "test_repeat_visitors_excluded": 2983,
+    "training_rows": 29290,
+    "training_visitors": 12412,
+    "test_rows": 12915,
+    "test_repeat_visitors_excluded": 1655,
     "train_max_outcome_end": "2015-08-03T00:00:00+00:00",
-    "test_min_snapshot": "2015-08-17T00:00:00+00:00",
+    "test_min_snapshot": "2015-08-10T00:00:00+00:00",
     "policy": "Chronological split with mature outcomes; test visitors absent from training"
   },
   "models": {
@@ -23,26 +23,26 @@
       "coefficients": [
         {
           "term": "const",
-          "coefficient": -0.19828138756436195,
-          "ci_low": -0.25578612852468835,
-          "ci_high": -0.14077664660403555,
-          "p_value": 1.397863762380094e-11
+          "coefficient": -0.18131586110433148,
+          "ci_low": -0.24324054620849286,
+          "ci_high": -0.1193911760001701,
+          "p_value": 9.53572431098853e-09
         },
         {
           "term": "feature_sessions_4w",
-          "coefficient": 0.1323911384683548,
-          "ci_low": 0.11450634272097979,
-          "ci_high": 0.1502759342157298,
-          "p_value": 1.0700910844379441e-47
+          "coefficient": 0.11857241849688079,
+          "ci_low": 0.09886297239081615,
+          "ci_high": 0.13828186460294542,
+          "p_value": 4.334140637655391e-32
         }
       ],
-      "n_train": 43536,
-      "n_test": 17368,
-      "r_squared": 0.35388645687056575,
-      "adjusted_r_squared": 0.3538716152859852,
-      "test_mae": 0.3590184484796045,
-      "test_rmse": 0.8711937905061525,
-      "test_negative_predictions": 5928,
+      "n_train": 29290,
+      "n_test": 12915,
+      "r_squared": 0.3718599756245321,
+      "adjusted_r_squared": 0.3718385286146859,
+      "test_mae": 0.3055930980807989,
+      "test_rmse": 0.7184541153347491,
+      "test_negative_predictions": 4047,
       "covariance": "cluster"
     },
     "multiple": {
@@ -54,40 +54,40 @@
       "coefficients": [
         {
           "term": "const",
-          "coefficient": -0.16894127421809335,
-          "ci_low": -0.2819497670720079,
-          "ci_high": -0.055932781364178785,
-          "p_value": 0.003389240818455726
+          "coefficient": -0.19978258345164368,
+          "ci_low": -0.322621852817111,
+          "ci_high": -0.0769433140861764,
+          "p_value": 0.0014344182790102626
         },
         {
           "term": "feature_sessions_4w",
-          "coefficient": 0.12723209849347886,
-          "ci_low": 0.10621359093019644,
-          "ci_high": 0.14825060605676127,
-          "p_value": 1.8136685739645773e-32
+          "coefficient": 0.11758777218378433,
+          "ci_low": 0.09437881047715455,
+          "ci_high": 0.1407967338904141,
+          "p_value": 3.0788164336908934e-23
         },
         {
           "term": "feature_views_4w",
-          "coefficient": 0.0011029381887063857,
-          "ci_low": -0.001042971015153582,
-          "ci_high": 0.0032488473925663536,
-          "p_value": 0.31375821737935905
+          "coefficient": 0.00044168180908912553,
+          "ci_low": -0.001883459614835982,
+          "ci_high": 0.0027668232330142328,
+          "p_value": 0.7096598016114571
         },
         {
           "term": "feature_recency_days",
-          "coefficient": -0.0013990370934466546,
-          "ci_low": -0.004630037711744115,
-          "ci_high": 0.0018319635248508063,
-          "p_value": 0.3960633898426773
+          "coefficient": 0.0011433038869114271,
+          "ci_low": -0.0023635763418593052,
+          "ci_high": 0.00465018411568216,
+          "p_value": 0.5228344377408236
         }
       ],
-      "n_train": 43536,
-      "n_test": 17368,
-      "r_squared": 0.35487644703037513,
-      "adjusted_r_squared": 0.35483198845601815,
-      "test_mae": 0.3608862667769138,
-      "test_rmse": 0.8702714864030988,
-      "test_negative_predictions": 5927,
+      "n_train": 29290,
+      "n_test": 12915,
+      "r_squared": 0.37210420674570055,
+      "adjusted_r_squared": 0.3720398863407369,
+      "test_mae": 0.3015743298204283,
+      "test_rmse": 0.7175943524432671,
+      "test_negative_predictions": 4047,
       "covariance": "cluster"
     }
   },

@@ -24,24 +24,37 @@ def clean_json(obj):
 
 def save_json(path,obj):path.write_text(json.dumps(clean_json(obj),indent=2,allow_nan=False))
 
+def _partition(df,val_start,test_start):
+    # Label windows are half-open [T, label_end): a label may be used when its
+    # whole window ends no later than the next partition's first snapshot.
+    train=df[(df.snapshot_date<val_start)&(df.label_end<=val_start)].copy()
+    val=df[(df.snapshot_date>=val_start)&(df.snapshot_date<test_start)&(df.label_end<=test_start)].copy()
+    test=df[df.snapshot_date>=test_start].copy()
+    return train,val,test
+
 def split_time(df):
     dates=sorted(df.snapshot_date.unique())
-    if len(dates)<8:raise ValueError('Need at least eight snapshot dates for purged temporal train/validation/test')
-    val_start=dates[max(3,int(len(dates)*.5))]
-    test_start=dates[max(6,int(len(dates)*.75))]
-    if val_start>=test_start:raise ValueError('No validation window between train and test')
-    # A label may be used only if its entire confirmation window ended before
-    # the next partition starts. This allows a two-week horizon with short data.
-    train=df[(df.snapshot_date<val_start)&(df.label_end<val_start)].copy()
-    val=df[(df.snapshot_date>=val_start)&(df.snapshot_date<test_start)&(df.label_end<test_start)].copy()
-    test=df[df.snapshot_date>=test_start].copy()
-    if min(map(len,[train,val,test]))<20:raise ValueError('Insufficient samples after label-overlap purging')
-    # Conservative evaluation: remove users present in an earlier partition.
-    val=val[~val.visitorid.isin(train.visitorid)]
-    test=test[~test.visitorid.isin(pd.concat([train.visitorid,val.visitorid]))]
-    for part in [train,val,test]:
-        if len(part)<20 or part.target_ghost.nunique()!=2:raise ValueError('Each partition needs >=20 rows and two target classes')
-    return train,val,test
+    if len(dates)<4:raise ValueError('Need at least four snapshot dates for purged temporal train/validation/test')
+    horizon=(df.label_end-df.snapshot_date).max()
+    candidates=[]
+    if len(dates)>=8:
+        candidates.append((dates[max(3,int(len(dates)*.5))],dates[max(6,int(len(dates)*.75))]))
+    # Longer horizons (4+2+4) leave too few mature weeks for the proportional
+    # cut: test on the last mature week, validate on the latest week whose label
+    # ends by the test start, and train on weeks whose labels end by validation.
+    test_start=dates[-1]
+    val_pool=[d for d in dates if d+horizon<=test_start]
+    if val_pool:candidates.append((val_pool[-1],test_start))
+    for val_start,test_start in candidates:
+        if val_start>=test_start:continue
+        train,val,test=_partition(df,val_start,test_start)
+        if min(map(len,[train,val,test]))<20:continue
+        # Conservative evaluation: remove users present in an earlier partition.
+        val=val[~val.visitorid.isin(train.visitorid)]
+        test=test[~test.visitorid.isin(pd.concat([train.visitorid,val.visitorid]))]
+        if all(len(part)>=20 and part.target_ghost.nunique()==2 for part in [train,val,test]):
+            return train,val,test
+    raise ValueError('Insufficient samples after label-overlap purging')
 
 def coefficient_table(model,logit=False):
     ci=model.conf_int();rows=[]
@@ -112,7 +125,7 @@ def run(source, outdir, observed_through, mode):
     result = {"data_mode": mode, "observed_through": str(end), "covariance": cov["cov_type"],
               "input_sha256": hashlib.sha256(Path(source).read_bytes()).hexdigest(),
               "label_task": "ghost_vs_rest among mature snapshots; inactive and recovered are negative",
-              "decision_status": "Exploratory result under proposed 4+2+2 cohort/label and purged temporal split",
+              "decision_status": "Exploratory result under 4+2+4 cohort/label and purged temporal split",
               "eligible_rows": len(eligible), "excluded_rows": len(data)-len(eligible),
               "split": {name: {"n": len(part), "positive": int(part.target_ghost.sum()),
                                "first_snapshot": str(part.snapshot_date.min()), "last_label_end": str(part.label_end.max())}

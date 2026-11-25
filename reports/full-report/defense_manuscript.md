@@ -1,5 +1,7 @@
 # Ghost Customer Prediction from E Commerce Event Histories
 
+> **Historical draft — do not submit or quote as current.** The quantitative sections below use the earlier 4+2+2 cohort. Current 4+2+4 evidence and corrected denominators are recorded in [`research/window424_analysis.md`](../../research/window424_analysis.md); the manuscript requires a full numerical refresh before submission.
+
 STAT3013 full project report draft for defense, 20 November 2026. The statistical setting is a **proposed** operational definition. All reported results were reproduced from the pinned Retailrocket event file on the local demo machine. This document needs team verification, lecturer guidance on SEM, and the course similarity and AI content checks before submission.
 
 ## Abstract

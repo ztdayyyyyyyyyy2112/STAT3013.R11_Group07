@@ -1,5 +1,7 @@
 # Retailrocket data go/no-go (proposed)
 
+> **Historical audit:** The analysis below describes the superseded 4+2+2 exploration and its earlier pipeline state. It is retained for design-sensitivity context, not as the current cohort or project result. For current 4+2+4 counts, statistics, regression and forecast, use [`research/window424_analysis.md`](../research/window424_analysis.md).
+
 Computed from the local source whose SHA-256 is pinned in `data/config/pipeline.json`. Run `python -m data.scripts.run_pipeline --mode audit_compat`, then `python -m data.scripts.export_supplementary` to reproduce core and supplementary outputs. All processed outputs are ignored by Git.
 
 A small reviewable row-count/hash snapshot is committed at `research/feasibility/retailrocket_run_manifest.json`; raw and customer-level processed artifacts remain local and ignored. That snapshot was generated with uncommitted changes in the pipeline worktree, so its recorded commit alone cannot reproduce the exact outputs. Re-run from a clean committed revision and update the manifest before using the numbers as final evidence.

@@ -10,7 +10,7 @@ STAT3013 project: early detection of silent customer disengagement in e-commerce
 
 ## Current status
 
-The repository now contains a reproducible **local real-data demo**: data pipeline, descriptive and inferential statistics, OLS and logistic regression, a short-series naive forecast, model evaluation, saved-model inference, seven API routes, and a Next.js dashboard. On 20 November 2026 the integrated real-data check passed locally. Raw/processed visitor data and the trained model stay out of Git, so a new machine must rebuild them. The 4+2+2 cohort and Ghost label remain proposed research decisions; see `docs/decision_log.md` and the observation-only ablation before making performance claims.
+The repository contains a reproducible **local real-data demo**: data pipeline, descriptive and inferential statistics, OLS and logistic regression, a short-series naive forecast, model evaluation, saved-model inference, seven API routes, and a Next.js dashboard. The current pipeline uses a 4-week baseline, 2-week observation window, and 4-week confirmation horizon (`b4_o2_c4`). Raw/processed visitor data and the trained model stay out of Git, so a new machine must rebuild them. The cohort and Ghost label remain proposed research decisions; see `docs/decision_log.md` and the observation-only ablation before making performance claims. See [`research/window424_analysis.md`](research/window424_analysis.md) for the current quantitative results and their denominators. Older report drafts remain historical and must be refreshed before submission.
 
 ## Run the complete project locally (Windows PowerShell)
 

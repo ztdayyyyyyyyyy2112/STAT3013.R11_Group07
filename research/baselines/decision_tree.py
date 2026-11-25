@@ -119,7 +119,7 @@ def validate_splits(records) -> dict[str, list]:
         if ids[first] & ids[second]:
             raise ValueError(f"customer_id appears in both {first} and {second}")
     for earlier, later in (("train", "validation"), ("validation", "test")):
-        if max(row[2] for row in groups[earlier]) >= min(row[1] for row in groups[later]):
+        if max(row[2] for row in groups[earlier]) > min(row[1] for row in groups[later]):
             raise ValueError(f"{earlier} labels overlap the {later} snapshot period")
     return groups
 

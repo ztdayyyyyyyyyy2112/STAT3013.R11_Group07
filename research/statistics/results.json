@@ -4,62 +4,62 @@
       "name": "active",
       "metric": "feature_sessions_4w",
       "unit": "count",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 8.077944510417792,
-      "sd": 11.987125660853788,
+      "mean": 7.293277810826889,
+      "sd": 10.973606810426206,
       "median": 4.0,
       "q1": 3.0,
-      "q3": 8.0,
+      "q3": 7.0,
       "min": 1.0,
       "max": 117.0,
       "histogram": [
         {
           "lower": 1.0,
           "upper": 12.6,
-          "count": 7960
+          "count": 7384
         },
         {
           "lower": 12.6,
           "upper": 24.2,
-          "count": 709
+          "count": 552
         },
         {
           "lower": 24.2,
           "upper": 35.8,
-          "count": 253
+          "count": 218
         },
         {
           "lower": 35.8,
           "upper": 47.4,
-          "count": 144
+          "count": 114
         },
         {
           "lower": 47.4,
           "upper": 59.0,
-          "count": 56
+          "count": 40
         },
         {
           "lower": 59.0,
           "upper": 70.6,
-          "count": 56
+          "count": 41
         },
         {
           "lower": 70.6,
           "upper": 82.2,
-          "count": 41
+          "count": 25
         },
         {
           "lower": 82.2,
           "upper": 93.8,
-          "count": 17
+          "count": 12
         },
         {
           "lower": 93.8,
           "upper": 105.39999999999999,
-          "count": 18
+          "count": 10
         },
         {
           "lower": 105.39999999999999,
@@ -72,42 +72,42 @@
       "name": "active",
       "metric": "feature_views_4w",
       "unit": "count",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 24.722660045341684,
-      "sd": 99.57714337969199,
+      "mean": 22.61368233194527,
+      "sd": 94.93332953679104,
       "median": 8.0,
       "q1": 5.0,
-      "q3": 16.0,
+      "q3": 15.0,
       "min": 0.0,
       "max": 2526.0,
       "histogram": [
         {
           "lower": 0.0,
           "upper": 252.6,
-          "count": 9130
+          "count": 8303
         },
         {
           "lower": 252.6,
           "upper": 505.2,
-          "count": 79
+          "count": 63
         },
         {
           "lower": 505.2,
           "upper": 757.8,
-          "count": 22
+          "count": 16
         },
         {
           "lower": 757.8,
           "upper": 1010.4,
-          "count": 10
+          "count": 6
         },
         {
           "lower": 1010.4,
           "upper": 1263.0,
-          "count": 8
+          "count": 4
         },
         {
           "lower": 1263.0,
@@ -122,7 +122,7 @@
         {
           "lower": 1768.2,
           "upper": 2020.8,
-          "count": 3
+          "count": 2
         },
         {
           "lower": 2020.8,
@@ -140,12 +140,12 @@
       "name": "active",
       "metric": "feature_carts_4w",
       "unit": "count",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 1.2929936305732483,
-      "sd": 10.712325652740953,
+      "mean": 1.1741820345032719,
+      "sd": 9.968220549861758,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -155,42 +155,42 @@
         {
           "lower": 0.0,
           "upper": 32.2,
-          "count": 9209
+          "count": 8362
         },
         {
           "lower": 32.2,
           "upper": 64.4,
-          "count": 21
+          "count": 19
         },
         {
           "lower": 64.4,
           "upper": 96.60000000000001,
-          "count": 7
+          "count": 6
         },
         {
           "lower": 96.60000000000001,
           "upper": 128.8,
-          "count": 7
+          "count": 5
         },
         {
           "lower": 128.8,
           "upper": 161.0,
-          "count": 5
+          "count": 2
         },
         {
           "lower": 161.0,
           "upper": 193.20000000000002,
-          "count": 5
+          "count": 4
         },
         {
           "lower": 193.20000000000002,
           "upper": 225.40000000000003,
-          "count": 2
+          "count": 1
         },
         {
           "lower": 225.40000000000003,
           "upper": 257.6,
-          "count": 3
+          "count": 2
         },
         {
           "lower": 257.6,
@@ -208,12 +208,12 @@
       "name": "active",
       "metric": "feature_purchases_4w",
       "unit": "count",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.667494332289755,
-      "sd": 8.216461786096572,
+      "mean": 0.5762046400951815,
+      "sd": 7.491613913251826,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -223,7 +223,7 @@
         {
           "lower": 0.0,
           "upper": 26.0,
-          "count": 9229
+          "count": 8379
         },
         {
           "lower": 26.0,
@@ -238,22 +238,22 @@
         {
           "lower": 78.0,
           "upper": 104.0,
-          "count": 9
+          "count": 5
         },
         {
           "lower": 104.0,
           "upper": 130.0,
-          "count": 5
+          "count": 4
         },
         {
           "lower": 130.0,
           "upper": 156.0,
-          "count": 4
+          "count": 3
         },
         {
           "lower": 156.0,
           "upper": 182.0,
-          "count": 1
+          "count": 0
         },
         {
           "lower": 182.0,
@@ -268,7 +268,7 @@
         {
           "lower": 234.0,
           "upper": 260.0,
-          "count": 3
+          "count": 2
         }
       ]
     },
@@ -276,67 +276,67 @@
       "name": "active",
       "metric": "feature_active_days_4w",
       "unit": "count",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 5.11832019863975,
-      "sd": 4.561586071395708,
-      "median": 4.0,
+      "mean": 4.72849494348602,
+      "sd": 4.296075180202818,
+      "median": 3.0,
       "q1": 2.0,
-      "q3": 6.0,
+      "q3": 5.0,
       "min": 1.0,
       "max": 28.0,
       "histogram": [
         {
           "lower": 1.0,
           "upper": 3.7,
-          "count": 4424
+          "count": 4432
         },
         {
           "lower": 3.7,
           "upper": 6.4,
-          "count": 2906
+          "count": 2453
         },
         {
           "lower": 6.4,
           "upper": 9.100000000000001,
-          "count": 777
+          "count": 626
         },
         {
           "lower": 9.100000000000001,
           "upper": 11.8,
-          "count": 296
+          "count": 237
         },
         {
           "lower": 11.8,
           "upper": 14.5,
-          "count": 269
+          "count": 211
         },
         {
           "lower": 14.5,
           "upper": 17.200000000000003,
-          "count": 249
+          "count": 191
         },
         {
           "lower": 17.200000000000003,
           "upper": 19.900000000000002,
-          "count": 148
+          "count": 116
         },
         {
           "lower": 19.900000000000002,
           "upper": 22.6,
-          "count": 91
+          "count": 64
         },
         {
           "lower": 22.6,
           "upper": 25.3,
-          "count": 56
+          "count": 40
         },
         {
           "lower": 25.3,
           "upper": 28.0,
-          "count": 47
+          "count": 35
         }
       ]
     },
@@ -344,67 +344,67 @@
       "name": "active",
       "metric": "feature_recency_days",
       "unit": "days",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 4.897183461908889,
-      "sd": 3.9074543157562154,
-      "median": 3.8246167824074075,
-      "q1": 1.9465795138888888,
-      "q3": 7.713062702546296,
+      "mean": 5.104941205100029,
+      "sd": 3.9356182020578974,
+      "median": 4.0884611458333335,
+      "q1": 2.0226482407407405,
+      "q3": 8.048412407407408,
       "min": 1.400462962962963e-05,
-      "max": 13.998984872685186,
+      "max": 13.99766445601852,
       "histogram": [
         {
           "lower": 1.400462962962963e-05,
-          "upper": 1.399911091435185,
-          "count": 1943
+          "upper": 1.3997790497685185,
+          "count": 1622
         },
         {
-          "lower": 1.399911091435185,
-          "upper": 2.799808178240741,
-          "count": 1628
+          "lower": 1.3997790497685185,
+          "upper": 2.7995440949074077,
+          "count": 1399
         },
         {
-          "lower": 2.799808178240741,
-          "upper": 4.199705265046296,
-          "count": 1471
+          "lower": 2.7995440949074077,
+          "upper": 4.199309140046297,
+          "count": 1325
         },
         {
-          "lower": 4.199705265046296,
-          "upper": 5.599602351851852,
-          "count": 910
+          "lower": 4.199309140046297,
+          "upper": 5.599074185185185,
+          "count": 893
         },
         {
-          "lower": 5.599602351851852,
-          "upper": 6.999499438657407,
-          "count": 796
+          "lower": 5.599074185185185,
+          "upper": 6.998839230324074,
+          "count": 726
         },
         {
-          "lower": 6.999499438657407,
-          "upper": 8.399396525462963,
-          "count": 500
+          "lower": 6.998839230324074,
+          "upper": 8.398604275462965,
+          "count": 476
         },
         {
-          "lower": 8.399396525462963,
-          "upper": 9.799293612268519,
-          "count": 487
-        },
-        {
-          "lower": 9.799293612268519,
-          "upper": 11.199190699074075,
-          "count": 581
-        },
-        {
-          "lower": 11.199190699074075,
-          "upper": 12.59908778587963,
-          "count": 478
-        },
-        {
-          "lower": 12.59908778587963,
-          "upper": 13.998984872685186,
+          "lower": 8.398604275462965,
+          "upper": 9.798369320601854,
           "count": 469
+        },
+        {
+          "lower": 9.798369320601854,
+          "upper": 11.198134365740742,
+          "count": 580
+        },
+        {
+          "lower": 11.198134365740742,
+          "upper": 12.59789941087963,
+          "count": 469
+        },
+        {
+          "lower": 12.59789941087963,
+          "upper": 13.99766445601852,
+          "count": 446
         }
       ]
     },
@@ -412,12 +412,12 @@
       "name": "active",
       "metric": "feature_decay_ratio",
       "unit": "ratio",
-      "n": 9263,
-      "n_total": 9263,
+      "n": 8405,
+      "n_total": 8405,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 3.247441853829059,
-      "sd": 4.208187773716101,
+      "mean": 3.4704500680415675,
+      "sd": 4.302583148279425,
       "median": 2.0,
       "q1": 1.0,
       "q3": 4.0,
@@ -427,27 +427,27 @@
         {
           "lower": 0.5,
           "upper": 7.05,
-          "count": 8309
+          "count": 7472
         },
         {
           "lower": 7.05,
           "upper": 13.6,
-          "count": 679
+          "count": 681
         },
         {
           "lower": 13.6,
           "upper": 20.15,
-          "count": 190
+          "count": 171
         },
         {
           "lower": 20.15,
           "upper": 26.7,
-          "count": 34
+          "count": 31
         },
         {
           "lower": 26.7,
           "upper": 33.25,
-          "count": 26
+          "count": 23
         },
         {
           "lower": 33.25,
@@ -457,7 +457,7 @@
         {
           "lower": 39.8,
           "upper": 46.35,
-          "count": 8
+          "count": 10
         },
         {
           "lower": 46.35,
@@ -480,67 +480,67 @@
       "name": "ghost",
       "metric": "feature_sessions_4w",
       "unit": "count",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 9.190912562046583,
-      "sd": 10.943052529817725,
-      "median": 6.0,
-      "q1": 3.0,
-      "q3": 11.0,
+      "mean": 6.670567986230637,
+      "sd": 9.385211472056382,
+      "median": 4.0,
+      "q1": 2.0,
+      "q3": 7.0,
       "min": 0.0,
-      "max": 101.0,
+      "max": 115.0,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 10.1,
-          "count": 1952
+          "upper": 11.5,
+          "count": 5059
         },
         {
-          "lower": 10.1,
-          "upper": 20.2,
-          "count": 410
+          "lower": 11.5,
+          "upper": 23.0,
+          "count": 483
         },
         {
-          "lower": 20.2,
-          "upper": 30.299999999999997,
-          "count": 132
+          "lower": 23.0,
+          "upper": 34.5,
+          "count": 142
         },
         {
-          "lower": 30.299999999999997,
-          "upper": 40.4,
-          "count": 63
+          "lower": 34.5,
+          "upper": 46.0,
+          "count": 47
         },
         {
-          "lower": 40.4,
-          "upper": 50.5,
-          "count": 22
+          "lower": 46.0,
+          "upper": 57.5,
+          "count": 40
         },
         {
-          "lower": 50.5,
-          "upper": 60.599999999999994,
-          "count": 18
+          "lower": 57.5,
+          "upper": 69.0,
+          "count": 15
         },
         {
-          "lower": 60.599999999999994,
-          "upper": 70.7,
-          "count": 8
+          "lower": 69.0,
+          "upper": 80.5,
+          "count": 14
         },
         {
-          "lower": 70.7,
-          "upper": 80.8,
-          "count": 8
+          "lower": 80.5,
+          "upper": 92.0,
+          "count": 2
         },
         {
-          "lower": 80.8,
-          "upper": 90.89999999999999,
-          "count": 1
-        },
-        {
-          "lower": 90.89999999999999,
-          "upper": 101.0,
+          "lower": 92.0,
+          "upper": 103.5,
           "count": 5
+        },
+        {
+          "lower": 103.5,
+          "upper": 115.0,
+          "count": 3
         }
       ]
     },
@@ -548,42 +548,42 @@
       "name": "ghost",
       "metric": "feature_views_4w",
       "unit": "count",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 23.647575410462007,
-      "sd": 69.07665528683657,
-      "median": 10.0,
-      "q1": 5.0,
-      "q3": 22.0,
+      "mean": 16.96540447504303,
+      "sd": 52.032022738963875,
+      "median": 7.0,
+      "q1": 3.0,
+      "q3": 15.0,
       "min": 0.0,
       "max": 1774.0,
       "histogram": [
         {
           "lower": 0.0,
           "upper": 177.4,
-          "count": 2576
+          "count": 5748
         },
         {
           "lower": 177.4,
           "upper": 354.8,
-          "count": 28
+          "count": 36
         },
         {
           "lower": 354.8,
           "upper": 532.2,
-          "count": 8
+          "count": 16
         },
         {
           "lower": 532.2,
           "upper": 709.6,
-          "count": 3
+          "count": 6
         },
         {
           "lower": 709.6,
           "upper": 887.0,
-          "count": 0
+          "count": 1
         },
         {
           "lower": 887.0,
@@ -593,7 +593,7 @@
         {
           "lower": 1064.4,
           "upper": 1241.8,
-          "count": 2
+          "count": 1
         },
         {
           "lower": 1241.8,
@@ -616,12 +616,12 @@
       "name": "ghost",
       "metric": "feature_carts_4w",
       "unit": "count",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 1.1458571974035892,
-      "sd": 8.873792164350341,
+      "mean": 0.8327022375215146,
+      "sd": 6.471029851002477,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -631,17 +631,17 @@
         {
           "lower": 0.0,
           "upper": 21.8,
-          "count": 2596
+          "count": 5774
         },
         {
           "lower": 21.8,
           "upper": 43.6,
-          "count": 12
+          "count": 21
         },
         {
           "lower": 43.6,
           "upper": 65.4,
-          "count": 2
+          "count": 5
         },
         {
           "lower": 65.4,
@@ -651,7 +651,7 @@
         {
           "lower": 87.2,
           "upper": 109.0,
-          "count": 3
+          "count": 4
         },
         {
           "lower": 109.0,
@@ -684,12 +684,12 @@
       "name": "ghost",
       "metric": "feature_purchases_4w",
       "unit": "count",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.5643375334096984,
-      "sd": 6.245056383297552,
+      "mean": 0.37882960413080896,
+      "sd": 4.528504165978989,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -699,27 +699,27 @@
         {
           "lower": 0.0,
           "upper": 17.5,
-          "count": 2605
+          "count": 5793
         },
         {
           "lower": 17.5,
           "upper": 35.0,
-          "count": 5
+          "count": 6
         },
         {
           "lower": 35.0,
           "upper": 52.5,
-          "count": 2
+          "count": 1
         },
         {
           "lower": 52.5,
           "upper": 70.0,
-          "count": 0
+          "count": 2
         },
         {
           "lower": 70.0,
           "upper": 87.5,
-          "count": 3
+          "count": 4
         },
         {
           "lower": 87.5,
@@ -752,67 +752,67 @@
       "name": "ghost",
       "metric": "feature_active_days_4w",
       "unit": "count",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 5.671248568155785,
-      "sd": 4.6319853620931895,
-      "median": 4.0,
-      "q1": 3.0,
-      "q3": 7.0,
+      "mean": 4.348881239242685,
+      "sd": 3.96806449617015,
+      "median": 3.0,
+      "q1": 2.0,
+      "q3": 5.0,
       "min": 0.0,
       "max": 28.0,
       "histogram": [
         {
           "lower": 0.0,
           "upper": 2.8,
-          "count": 635
+          "count": 2113
         },
         {
           "lower": 2.8,
           "upper": 5.6,
-          "count": 968
+          "count": 2308
         },
         {
           "lower": 5.6,
           "upper": 8.399999999999999,
-          "count": 529
+          "count": 752
         },
         {
           "lower": 8.399999999999999,
           "upper": 11.2,
-          "count": 201
+          "count": 278
         },
         {
           "lower": 11.2,
           "upper": 14.0,
-          "count": 80
+          "count": 100
         },
         {
           "lower": 14.0,
           "upper": 16.799999999999997,
-          "count": 93
+          "count": 111
         },
         {
           "lower": 16.799999999999997,
           "upper": 19.599999999999998,
-          "count": 63
+          "count": 86
         },
         {
           "lower": 19.599999999999998,
           "upper": 22.4,
-          "count": 35
+          "count": 44
         },
         {
           "lower": 22.4,
           "upper": 25.2,
-          "count": 9
+          "count": 10
         },
         {
           "lower": 25.2,
           "upper": 28.0,
-          "count": 6
+          "count": 8
         }
       ]
     },
@@ -820,67 +820,67 @@
       "name": "ghost",
       "metric": "feature_recency_days",
       "unit": "days",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 10.944975345626865,
-      "sd": 8.579079566341667,
-      "median": 9.214073067129629,
-      "q1": 3.3457538368055557,
-      "q3": 17.244257824074076,
+      "mean": 12.149315495157218,
+      "sd": 9.078112720339767,
+      "median": 10.790341325231482,
+      "q1": 4.044121941550926,
+      "q3": 18.83970029224537,
       "min": 9.039351851851851e-05,
-      "max": 34.4131969212963,
+      "max": 34.99663157407407,
       "histogram": [
         {
           "lower": 9.039351851851851e-05,
-          "upper": 3.441401046296296,
-          "count": 671
+          "upper": 3.4997445115740735,
+          "count": 1321
         },
         {
-          "lower": 3.441401046296296,
-          "upper": 6.882711699074074,
-          "count": 460
+          "lower": 3.4997445115740735,
+          "upper": 6.999398629629629,
+          "count": 919
         },
         {
-          "lower": 6.882711699074074,
-          "upper": 10.324022351851852,
-          "count": 293
+          "lower": 6.999398629629629,
+          "upper": 10.499052747685184,
+          "count": 644
         },
         {
-          "lower": 10.324022351851852,
-          "upper": 13.76533300462963,
-          "count": 268
+          "lower": 10.499052747685184,
+          "upper": 13.99870686574074,
+          "count": 638
         },
         {
-          "lower": 13.76533300462963,
-          "upper": 17.206643657407408,
-          "count": 266
+          "lower": 13.99870686574074,
+          "upper": 17.498360983796296,
+          "count": 610
         },
         {
-          "lower": 17.206643657407408,
-          "upper": 20.647954310185185,
-          "count": 278
+          "lower": 17.498360983796296,
+          "upper": 20.99801510185185,
+          "count": 646
         },
         {
-          "lower": 20.647954310185185,
-          "upper": 24.089264962962964,
-          "count": 138
+          "lower": 20.99801510185185,
+          "upper": 24.497669219907404,
+          "count": 339
         },
         {
-          "lower": 24.089264962962964,
-          "upper": 27.53057561574074,
-          "count": 126
+          "lower": 24.497669219907404,
+          "upper": 27.99732333796296,
+          "count": 371
         },
         {
-          "lower": 27.53057561574074,
-          "upper": 30.971886268518517,
-          "count": 65
+          "lower": 27.99732333796296,
+          "upper": 31.496977456018517,
+          "count": 151
         },
         {
-          "lower": 30.971886268518517,
-          "upper": 34.4131969212963,
-          "count": 54
+          "lower": 31.496977456018517,
+          "upper": 34.99663157407407,
+          "count": 171
         }
       ]
     },
@@ -888,13 +888,13 @@
       "name": "ghost",
       "metric": "feature_decay_ratio",
       "unit": "ratio",
-      "n": 2619,
-      "n_total": 2619,
+      "n": 5810,
+      "n_total": 5810,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.5289915149886226,
-      "sd": 0.744212422156134,
-      "median": 0.3333333333333333,
+      "mean": 0.6001808700918433,
+      "sd": 0.8542459866534721,
+      "median": 0.36363636363636365,
       "q1": 0.0,
       "q3": 0.8,
       "min": 0.0,
@@ -903,47 +903,47 @@
         {
           "lower": 0.0,
           "upper": 1.0,
-          "count": 2144
+          "count": 4517
         },
         {
           "lower": 1.0,
           "upper": 2.0,
-          "count": 359
+          "count": 855
         },
         {
           "lower": 2.0,
           "upper": 3.0,
-          "count": 74
+          "count": 293
         },
         {
           "lower": 3.0,
           "upper": 4.0,
-          "count": 20
+          "count": 71
         },
         {
           "lower": 4.0,
           "upper": 5.0,
-          "count": 11
+          "count": 45
         },
         {
           "lower": 5.0,
           "upper": 6.0,
-          "count": 7
+          "count": 17
         },
         {
           "lower": 6.0,
           "upper": 7.0,
-          "count": 3
+          "count": 7
         },
         {
           "lower": 7.0,
           "upper": 8.0,
-          "count": 0
+          "count": 2
         },
         {
           "lower": 8.0,
           "upper": 9.0,
-          "count": 0
+          "count": 2
         },
         {
           "lower": 9.0,
@@ -956,66 +956,66 @@
       "name": "inactive",
       "metric": "feature_sessions_4w",
       "unit": "count",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 3.0182465884068947,
-      "sd": 4.009020790979171,
+      "mean": 2.9857913222407495,
+      "sd": 3.894675325460083,
       "median": 2.0,
       "q1": 1.0,
       "q3": 4.0,
       "min": 0.0,
-      "max": 115.0,
+      "max": 98.0,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 11.5,
-          "count": 69530
+          "upper": 9.8,
+          "count": 54338
         },
         {
-          "lower": 11.5,
-          "upper": 23.0,
-          "count": 1287
+          "lower": 9.8,
+          "upper": 19.6,
+          "count": 1500
         },
         {
-          "lower": 23.0,
-          "upper": 34.5,
-          "count": 302
+          "lower": 19.6,
+          "upper": 29.400000000000002,
+          "count": 332
         },
         {
-          "lower": 34.5,
-          "upper": 46.0,
-          "count": 109
+          "lower": 29.400000000000002,
+          "upper": 39.2,
+          "count": 118
         },
         {
-          "lower": 46.0,
-          "upper": 57.5,
-          "count": 39
+          "lower": 39.2,
+          "upper": 49.0,
+          "count": 49
         },
         {
-          "lower": 57.5,
-          "upper": 69.0,
-          "count": 13
+          "lower": 49.0,
+          "upper": 58.800000000000004,
+          "count": 18
         },
         {
-          "lower": 69.0,
-          "upper": 80.5,
-          "count": 10
-        },
-        {
-          "lower": 80.5,
-          "upper": 92.0,
+          "lower": 58.800000000000004,
+          "upper": 68.60000000000001,
           "count": 7
         },
         {
-          "lower": 92.0,
-          "upper": 103.5,
-          "count": 1
+          "lower": 68.60000000000001,
+          "upper": 78.4,
+          "count": 7
         },
         {
-          "lower": 103.5,
-          "upper": 115.0,
+          "lower": 78.4,
+          "upper": 88.2,
+          "count": 2
+        },
+        {
+          "lower": 88.2,
+          "upper": 98.0,
           "count": 3
         }
       ]
@@ -1024,12 +1024,12 @@
       "name": "inactive",
       "metric": "feature_views_4w",
       "unit": "count",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 7.912694071611899,
-      "sd": 31.050927610591632,
+      "mean": 7.982545144924965,
+      "sd": 32.674846979162936,
       "median": 5.0,
       "q1": 2.0,
       "q3": 8.0,
@@ -1039,22 +1039,22 @@
         {
           "lower": 0.0,
           "upper": 214.1,
-          "count": 71154
+          "count": 56256
         },
         {
           "lower": 214.1,
           "upper": 428.2,
-          "count": 82
+          "count": 65
         },
         {
           "lower": 428.2,
           "upper": 642.3,
-          "count": 35
+          "count": 26
         },
         {
           "lower": 642.3,
           "upper": 856.4,
-          "count": 12
+          "count": 10
         },
         {
           "lower": 856.4,
@@ -1069,7 +1069,7 @@
         {
           "lower": 1284.6,
           "upper": 1498.7,
-          "count": 4
+          "count": 3
         },
         {
           "lower": 1498.7,
@@ -1092,12 +1092,12 @@
       "name": "inactive",
       "metric": "feature_carts_4w",
       "unit": "count",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.4071752149338719,
-      "sd": 3.5778281100989613,
+      "mean": 0.40249050980948664,
+      "sd": 3.7018959567358265,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -1107,22 +1107,22 @@
         {
           "lower": 0.0,
           "upper": 23.1,
-          "count": 71156
+          "count": 56258
         },
         {
           "lower": 23.1,
           "upper": 46.2,
-          "count": 75
+          "count": 58
         },
         {
           "lower": 46.2,
           "upper": 69.30000000000001,
-          "count": 30
+          "count": 22
         },
         {
           "lower": 69.30000000000001,
           "upper": 92.4,
-          "count": 17
+          "count": 15
         },
         {
           "lower": 92.4,
@@ -1132,7 +1132,7 @@
         {
           "lower": 115.5,
           "upper": 138.60000000000002,
-          "count": 6
+          "count": 5
         },
         {
           "lower": 138.60000000000002,
@@ -1147,7 +1147,7 @@
         {
           "lower": 184.8,
           "upper": 207.9,
-          "count": 4
+          "count": 3
         },
         {
           "lower": 207.9,
@@ -1160,12 +1160,12 @@
       "name": "inactive",
       "metric": "feature_purchases_4w",
       "unit": "count",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.18168048133967266,
-      "sd": 2.4581390441215047,
+      "mean": 0.18338241033100366,
+      "sd": 2.52074286355131,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -1175,27 +1175,27 @@
         {
           "lower": 0.0,
           "upper": 18.9,
-          "count": 71198
+          "count": 56288
         },
         {
           "lower": 18.9,
           "upper": 37.8,
-          "count": 41
+          "count": 33
         },
         {
           "lower": 37.8,
           "upper": 56.699999999999996,
-          "count": 27
+          "count": 24
         },
         {
           "lower": 56.699999999999996,
           "upper": 75.6,
-          "count": 13
+          "count": 10
         },
         {
           "lower": 75.6,
           "upper": 94.5,
-          "count": 13
+          "count": 11
         },
         {
           "lower": 94.5,
@@ -1215,7 +1215,7 @@
         {
           "lower": 151.2,
           "upper": 170.1,
-          "count": 1
+          "count": 0
         },
         {
           "lower": 170.1,
@@ -1228,67 +1228,67 @@
       "name": "inactive",
       "metric": "feature_active_days_4w",
       "unit": "count",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 2.2540216827253476,
-      "sd": 2.0385319060913845,
+      "mean": 2.2288111540781212,
+      "sd": 2.0030822794372933,
       "median": 2.0,
       "q1": 1.0,
       "q3": 3.0,
       "min": 0.0,
-      "max": 27.0,
+      "max": 25.0,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 2.7,
-          "count": 47033
+          "upper": 2.5,
+          "count": 37502
         },
         {
-          "lower": 2.7,
-          "upper": 5.4,
-          "count": 20454
+          "lower": 2.5,
+          "upper": 5.0,
+          "count": 13881
         },
         {
-          "lower": 5.4,
-          "upper": 8.100000000000001,
-          "count": 2656
+          "lower": 5.0,
+          "upper": 7.5,
+          "count": 3756
         },
         {
-          "lower": 8.100000000000001,
-          "upper": 10.8,
-          "count": 522
+          "lower": 7.5,
+          "upper": 10.0,
+          "count": 603
         },
         {
-          "lower": 10.8,
-          "upper": 13.5,
-          "count": 349
+          "lower": 10.0,
+          "upper": 12.5,
+          "count": 345
         },
         {
-          "lower": 13.5,
-          "upper": 16.200000000000003,
-          "count": 178
+          "lower": 12.5,
+          "upper": 15.0,
+          "count": 121
         },
         {
-          "lower": 16.200000000000003,
-          "upper": 18.900000000000002,
-          "count": 61
+          "lower": 15.0,
+          "upper": 17.5,
+          "count": 112
         },
         {
-          "lower": 18.900000000000002,
-          "upper": 21.6,
-          "count": 32
+          "lower": 17.5,
+          "upper": 20.0,
+          "count": 31
         },
         {
-          "lower": 21.6,
-          "upper": 24.3,
-          "count": 14
+          "lower": 20.0,
+          "upper": 22.5,
+          "count": 15
         },
         {
-          "lower": 24.3,
-          "upper": 27.0,
-          "count": 2
+          "lower": 22.5,
+          "upper": 25.0,
+          "count": 8
         }
       ]
     },
@@ -1296,67 +1296,67 @@
       "name": "inactive",
       "metric": "feature_recency_days",
       "unit": "days",
-      "n": 71301,
-      "n_total": 71301,
+      "n": 56374,
+      "n_total": 56374,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 16.932043749486397,
-      "sd": 9.546390032634843,
-      "median": 16.43664900462963,
-      "q1": 9.314354247685186,
-      "q3": 25.006564212962964,
-      "min": 0.0003684837962962963,
+      "mean": 17.083479399307937,
+      "sd": 9.414835702236719,
+      "median": 16.859984160879627,
+      "q1": 9.887194846643519,
+      "q3": 24.987187369791666,
+      "min": 0.0005996759259259259,
       "max": 34.99993181712963,
       "histogram": [
         {
-          "lower": 0.0003684837962962963,
-          "upper": 3.5003248171296297,
-          "count": 5902
+          "lower": 0.0005996759259259259,
+          "upper": 3.5005328900462964,
+          "count": 4269
         },
         {
-          "lower": 3.5003248171296297,
-          "upper": 7.000281150462963,
-          "count": 7507
+          "lower": 3.5005328900462964,
+          "upper": 7.000466104166667,
+          "count": 5693
         },
         {
-          "lower": 7.000281150462963,
-          "upper": 10.500237483796298,
-          "count": 7129
+          "lower": 7.000466104166667,
+          "upper": 10.500399318287037,
+          "count": 5587
         },
         {
-          "lower": 10.500237483796298,
-          "upper": 14.000193817129631,
-          "count": 11216
+          "lower": 10.500399318287037,
+          "upper": 14.000332532407407,
+          "count": 9112
         },
         {
-          "lower": 14.000193817129631,
-          "upper": 17.500150150462964,
-          "count": 6043
+          "lower": 14.000332532407407,
+          "upper": 17.500265746527777,
+          "count": 4857
         },
         {
-          "lower": 17.500150150462964,
-          "upper": 21.000106483796298,
-          "count": 10000
+          "lower": 17.500265746527777,
+          "upper": 21.00019896064815,
+          "count": 8230
         },
         {
-          "lower": 21.000106483796298,
-          "upper": 24.50006281712963,
-          "count": 4895
+          "lower": 21.00019896064815,
+          "upper": 24.500132174768517,
+          "count": 3924
         },
         {
-          "lower": 24.50006281712963,
-          "upper": 28.000019150462965,
-          "count": 8726
+          "lower": 24.500132174768517,
+          "upper": 28.00006538888889,
+          "count": 6922
         },
         {
-          "lower": 28.000019150462965,
-          "upper": 31.499975483796298,
-          "count": 3400
+          "lower": 28.00006538888889,
+          "upper": 31.49999860300926,
+          "count": 2695
         },
         {
-          "lower": 31.499975483796298,
+          "lower": 31.49999860300926,
           "upper": 34.99993181712963,
-          "count": 6483
+          "count": 5085
         }
       ]
     },
@@ -1364,12 +1364,12 @@
       "name": "inactive",
       "metric": "feature_decay_ratio",
       "unit": "ratio",
-      "n": 71300,
-      "n_total": 71301,
+      "n": 56373,
+      "n_total": 56374,
       "missing_n": 1,
-      "missing_rate": 1.402504873704436e-05,
-      "mean": 1.0003692994558588,
-      "sd": 2.0102932157474567,
+      "missing_rate": 1.773867385674247e-05,
+      "mean": 0.9879695677846912,
+      "sd": 1.9897468829402987,
       "median": 0.0,
       "q1": 0.0,
       "q3": 1.3333333333333333,
@@ -1379,27 +1379,27 @@
         {
           "lower": 0.0,
           "upper": 7.4,
-          "count": 69926
+          "count": 55326
         },
         {
           "lower": 7.4,
           "upper": 14.8,
-          "count": 1227
+          "count": 937
         },
         {
           "lower": 14.8,
           "upper": 22.200000000000003,
-          "count": 109
+          "count": 84
         },
         {
           "lower": 22.200000000000003,
           "upper": 29.6,
-          "count": 19
+          "count": 11
         },
         {
           "lower": 29.6,
           "upper": 37.0,
-          "count": 9
+          "count": 7
         },
         {
           "lower": 37.0,
@@ -1409,7 +1409,7 @@
         {
           "lower": 44.400000000000006,
           "upper": 51.800000000000004,
-          "count": 5
+          "count": 3
         },
         {
           "lower": 51.800000000000004,
@@ -1432,67 +1432,67 @@
       "name": "recovered",
       "metric": "feature_sessions_4w",
       "unit": "count",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 3.158321060382916,
-      "sd": 4.847429952386223,
+      "mean": 3.1107445805843543,
+      "sd": 5.000658845020551,
       "median": 2.0,
       "q1": 1.0,
       "q3": 4.0,
       "min": 0.0,
-      "max": 72.0,
+      "max": 69.0,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 7.2,
-          "count": 2520
+          "upper": 6.9,
+          "count": 1927
         },
         {
-          "lower": 7.2,
-          "upper": 14.4,
-          "count": 137
+          "lower": 6.9,
+          "upper": 13.8,
+          "count": 135
         },
         {
-          "lower": 14.4,
-          "upper": 21.6,
-          "count": 28
+          "lower": 13.8,
+          "upper": 20.700000000000003,
+          "count": 26
         },
         {
-          "lower": 21.6,
-          "upper": 28.8,
-          "count": 12
+          "lower": 20.700000000000003,
+          "upper": 27.6,
+          "count": 14
         },
         {
-          "lower": 28.8,
-          "upper": 36.0,
-          "count": 5
+          "lower": 27.6,
+          "upper": 34.5,
+          "count": 6
         },
         {
-          "lower": 36.0,
-          "upper": 43.2,
-          "count": 7
+          "lower": 34.5,
+          "upper": 41.400000000000006,
+          "count": 6
         },
         {
-          "lower": 43.2,
-          "upper": 50.4,
+          "lower": 41.400000000000006,
+          "upper": 48.300000000000004,
+          "count": 4
+        },
+        {
+          "lower": 48.300000000000004,
+          "upper": 55.2,
           "count": 2
         },
         {
-          "lower": 50.4,
-          "upper": 57.6,
-          "count": 2
-        },
-        {
-          "lower": 57.6,
-          "upper": 64.8,
+          "lower": 55.2,
+          "upper": 62.1,
           "count": 1
         },
         {
-          "lower": 64.8,
-          "upper": 72.0,
-          "count": 2
+          "lower": 62.1,
+          "upper": 69.0,
+          "count": 1
         }
       ]
     },
@@ -1500,14 +1500,14 @@
       "name": "recovered",
       "metric": "feature_views_4w",
       "unit": "count",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 8.294918998527246,
-      "sd": 21.47950129811062,
+      "mean": 8.552309142318567,
+      "sd": 23.53278425490557,
       "median": 4.0,
-      "q1": 2.0,
+      "q1": 1.0,
       "q3": 8.0,
       "min": 0.0,
       "max": 488.0,
@@ -1515,27 +1515,27 @@
         {
           "lower": 0.0,
           "upper": 48.8,
-          "count": 2656
+          "count": 2071
         },
         {
           "lower": 48.8,
           "upper": 97.6,
-          "count": 37
+          "count": 29
         },
         {
           "lower": 97.6,
           "upper": 146.39999999999998,
-          "count": 10
+          "count": 12
         },
         {
           "lower": 146.39999999999998,
           "upper": 195.2,
-          "count": 5
+          "count": 4
         },
         {
           "lower": 195.2,
           "upper": 244.0,
-          "count": 4
+          "count": 2
         },
         {
           "lower": 244.0,
@@ -1550,7 +1550,7 @@
         {
           "lower": 341.59999999999997,
           "upper": 390.4,
-          "count": 1
+          "count": 0
         },
         {
           "lower": 390.4,
@@ -1560,7 +1560,7 @@
         {
           "lower": 439.2,
           "upper": 488.0,
-          "count": 1
+          "count": 2
         }
       ]
     },
@@ -1568,12 +1568,12 @@
       "name": "recovered",
       "metric": "feature_carts_4w",
       "unit": "count",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.4223122238586156,
-      "sd": 2.8013813929456064,
+      "mean": 0.4170593779453346,
+      "sd": 2.969108789124917,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -1583,22 +1583,22 @@
         {
           "lower": 0.0,
           "upper": 6.8,
-          "count": 2683
+          "count": 2100
         },
         {
           "lower": 6.8,
           "upper": 13.6,
-          "count": 22
+          "count": 15
         },
         {
           "lower": 13.6,
           "upper": 20.4,
-          "count": 3
+          "count": 0
         },
         {
           "lower": 20.4,
           "upper": 27.2,
-          "count": 2
+          "count": 1
         },
         {
           "lower": 27.2,
@@ -1623,12 +1623,12 @@
         {
           "lower": 54.4,
           "upper": 61.199999999999996,
-          "count": 0
+          "count": 1
         },
         {
           "lower": 61.199999999999996,
           "upper": 68.0,
-          "count": 3
+          "count": 2
         }
       ]
     },
@@ -1636,12 +1636,12 @@
       "name": "recovered",
       "metric": "feature_purchases_4w",
       "unit": "count",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.17893961708394698,
-      "sd": 1.9565289807048163,
+      "mean": 0.19274269557021678,
+      "sd": 2.2045523426216693,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
@@ -1651,12 +1651,12 @@
         {
           "lower": 0.0,
           "upper": 6.4,
-          "count": 2702
+          "count": 2111
         },
         {
           "lower": 6.4,
           "upper": 12.8,
-          "count": 9
+          "count": 6
         },
         {
           "lower": 12.8,
@@ -1691,12 +1691,12 @@
         {
           "lower": 51.2,
           "upper": 57.6,
-          "count": 1
+          "count": 0
         },
         {
           "lower": 57.6,
           "upper": 64.0,
-          "count": 1
+          "count": 2
         }
       ]
     },
@@ -1704,66 +1704,66 @@
       "name": "recovered",
       "metric": "feature_active_days_4w",
       "unit": "count",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 2.3008100147275403,
-      "sd": 2.1953607721879638,
+      "mean": 2.264373232799246,
+      "sd": 2.279884218380812,
       "median": 2.0,
       "q1": 1.0,
       "q3": 3.0,
       "min": 0.0,
-      "max": 23.0,
+      "max": 18.0,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 2.3,
-          "count": 1833
+          "upper": 1.8,
+          "count": 975
         },
         {
-          "lower": 2.3,
-          "upper": 4.6,
-          "count": 604
+          "lower": 1.8,
+          "upper": 3.6,
+          "count": 764
         },
         {
-          "lower": 4.6,
-          "upper": 6.8999999999999995,
-          "count": 150
+          "lower": 3.6,
+          "upper": 5.4,
+          "count": 240
         },
         {
-          "lower": 6.8999999999999995,
-          "upper": 9.2,
-          "count": 85
+          "lower": 5.4,
+          "upper": 7.2,
+          "count": 58
         },
         {
-          "lower": 9.2,
-          "upper": 11.5,
-          "count": 21
+          "lower": 7.2,
+          "upper": 9.0,
+          "count": 22
         },
         {
-          "lower": 11.5,
-          "upper": 13.799999999999999,
-          "count": 9
+          "lower": 9.0,
+          "upper": 10.8,
+          "count": 30
         },
         {
-          "lower": 13.799999999999999,
-          "upper": 16.099999999999998,
-          "count": 12
+          "lower": 10.8,
+          "upper": 12.6,
+          "count": 13
         },
         {
-          "lower": 16.099999999999998,
-          "upper": 18.4,
-          "count": 1
+          "lower": 12.6,
+          "upper": 14.4,
+          "count": 11
         },
         {
-          "lower": 18.4,
-          "upper": 20.7,
-          "count": 0
+          "lower": 14.4,
+          "upper": 16.2,
+          "count": 8
         },
         {
-          "lower": 20.7,
-          "upper": 23.0,
+          "lower": 16.2,
+          "upper": 18.0,
           "count": 1
         }
       ]
@@ -1772,67 +1772,67 @@
       "name": "recovered",
       "metric": "feature_recency_days",
       "unit": "days",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 19.15121394762433,
-      "sd": 7.981599220825747,
-      "median": 19.08095947337963,
-      "q1": 15.306900269097222,
-      "q3": 24.830866458333333,
+      "mean": 19.34570265325012,
+      "sd": 7.9394143495370795,
+      "median": 19.145931851851852,
+      "q1": 15.288277019675926,
+      "q3": 25.16427245081018,
       "min": 0.004791550925925926,
-      "max": 34.99663157407407,
+      "max": 34.995015370370375,
       "histogram": [
         {
           "lower": 0.004791550925925926,
-          "upper": 3.503975553240741,
-          "count": 159
+          "upper": 3.503813932870371,
+          "count": 105
         },
         {
-          "lower": 3.503975553240741,
-          "upper": 7.003159555555556,
-          "count": 111
+          "lower": 3.503813932870371,
+          "upper": 7.002836314814816,
+          "count": 94
         },
         {
-          "lower": 7.003159555555556,
-          "upper": 10.502343557870372,
-          "count": 101
+          "lower": 7.002836314814816,
+          "upper": 10.50185869675926,
+          "count": 83
         },
         {
-          "lower": 10.502343557870372,
-          "upper": 14.001527560185187,
-          "count": 118
+          "lower": 10.50185869675926,
+          "upper": 14.000881078703706,
+          "count": 113
         },
         {
-          "lower": 14.001527560185187,
-          "upper": 17.5007115625,
-          "count": 600
+          "lower": 14.000881078703706,
+          "upper": 17.499903460648152,
+          "count": 439
         },
         {
-          "lower": 17.5007115625,
-          "upper": 20.999895564814818,
-          "count": 632
+          "lower": 17.499903460648152,
+          "upper": 20.998925842592595,
+          "count": 497
         },
         {
-          "lower": 20.999895564814818,
-          "upper": 24.49907956712963,
-          "count": 295
+          "lower": 20.998925842592595,
+          "upper": 24.49794822453704,
+          "count": 215
         },
         {
-          "lower": 24.49907956712963,
-          "upper": 27.998263569444447,
-          "count": 377
+          "lower": 24.49794822453704,
+          "upper": 27.996970606481486,
+          "count": 312
         },
         {
-          "lower": 27.998263569444447,
-          "upper": 31.497447571759263,
-          "count": 128
+          "lower": 27.996970606481486,
+          "upper": 31.495992988425932,
+          "count": 106
         },
         {
-          "lower": 31.497447571759263,
-          "upper": 34.99663157407407,
-          "count": 195
+          "lower": 31.495992988425932,
+          "upper": 34.995015370370375,
+          "count": 158
         }
       ]
     },
@@ -1840,67 +1840,67 @@
       "name": "recovered",
       "metric": "feature_decay_ratio",
       "unit": "ratio",
-      "n": 2716,
-      "n_total": 2716,
+      "n": 2122,
+      "n_total": 2122,
       "missing_n": 0,
       "missing_rate": 0.0,
-      "mean": 0.058863341187431265,
-      "sd": 0.13097847879531285,
+      "mean": 0.06136908199818472,
+      "sd": 0.13437798046214447,
       "median": 0.0,
       "q1": 0.0,
       "q3": 0.0,
       "min": 0.0,
-      "max": 0.4864864864864865,
+      "max": 0.4827586206896552,
       "histogram": [
         {
           "lower": 0.0,
-          "upper": 0.04864864864864865,
-          "count": 2229
+          "upper": 0.04827586206896552,
+          "count": 1731
         },
         {
-          "lower": 0.04864864864864865,
-          "upper": 0.0972972972972973,
+          "lower": 0.04827586206896552,
+          "upper": 0.09655172413793103,
+          "count": 5
+        },
+        {
+          "lower": 0.09655172413793103,
+          "upper": 0.14482758620689656,
           "count": 7
         },
         {
-          "lower": 0.0972972972972973,
-          "upper": 0.14594594594594595,
-          "count": 6
+          "lower": 0.14482758620689656,
+          "upper": 0.19310344827586207,
+          "count": 20
         },
         {
-          "lower": 0.14594594594594595,
-          "upper": 0.1945945945945946,
-          "count": 24
+          "lower": 0.19310344827586207,
+          "upper": 0.24137931034482757,
+          "count": 27
         },
         {
-          "lower": 0.1945945945945946,
-          "upper": 0.24324324324324326,
-          "count": 37
+          "lower": 0.24137931034482757,
+          "upper": 0.2896551724137931,
+          "count": 64
         },
         {
-          "lower": 0.24324324324324326,
-          "upper": 0.2918918918918919,
-          "count": 96
+          "lower": 0.2896551724137931,
+          "upper": 0.33793103448275863,
+          "count": 84
         },
         {
-          "lower": 0.2918918918918919,
-          "upper": 0.34054054054054056,
-          "count": 114
+          "lower": 0.33793103448275863,
+          "upper": 0.38620689655172413,
+          "count": 17
         },
         {
-          "lower": 0.34054054054054056,
-          "upper": 0.3891891891891892,
-          "count": 16
+          "lower": 0.38620689655172413,
+          "upper": 0.43448275862068964,
+          "count": 139
         },
         {
-          "lower": 0.3891891891891892,
-          "upper": 0.43783783783783786,
-          "count": 154
-        },
-        {
-          "lower": 0.43783783783783786,
-          "upper": 0.4864864864864865,
-          "count": 33
+          "lower": 0.43448275862068964,
+          "upper": 0.4827586206896552,
+          "count": 28
         }
       ]
     }
@@ -1908,10 +1908,10 @@
   "estimates": [
     {
       "name": "Ghost share among mature Ghost/Active visitors",
-      "n": 1267,
-      "estimate": 0.292817679558011,
-      "ci_low": 0.2684172908902028,
-      "ci_high": 0.3184705963784534,
+      "n": 2279,
+      "estimate": 0.5577007459412023,
+      "ci_low": 0.537229764214157,
+      "ci_high": 0.5779775354359311,
       "method": "Wilson 95% binomial interval; one latest snapshot per visitor",
       "unit": "proportion"
     }
@@ -1920,12 +1920,12 @@
     {
       "name": "Pre-snapshot recency: ghost minus active",
       "hypothesis": "H0: mean pre-snapshot recency is equal in the two operational-label groups; H1: it differs.",
-      "n": 1267,
-      "statistic": 20.019859847176647,
-      "p_value": 7.521122464348876e-63,
-      "effect_size": 1.70667911774769,
-      "ci_low": 10.274159114700371,
-      "ci_high": 12.511430515944138,
+      "n": 2279,
+      "statistic": 35.48097863374329,
+      "p_value": 1.4413355257380045e-206,
+      "effect_size": 1.3712543017327852,
+      "ci_low": 10.893096411133103,
+      "ci_high": 12.16789483764588,
       "method": "Two-sided Welch t test; 95% Welch CI for mean difference; Cohen d effect size",
       "assumptions": [
         "One latest mature snapshot per visitor",
@@ -1936,17 +1936,17 @@
     }
   ],
   "p_values": [
-    7.521122464348876e-63
+    1.4413355257380045e-206
   ],
   "cis": [
     {
-      "low": 10.274159114700371,
-      "high": 12.511430515944138
+      "low": 10.893096411133103,
+      "high": 12.16789483764588
     }
   ],
   "assumptions": [
     "Inferential rows contain one latest mature snapshot per visitor; descriptive groups retain repeated snapshots.",
-    "Ghost and active are operational labels under the proposed 4+2+2 configuration, not externally validated churn.",
+    "Ghost and active are operational labels under the 4+2+4 configuration, not externally validated churn.",
     "The test is exploratory and does not establish causation or model performance."
   ],
   "dataset_notice": "Retailrocket exploratory statistics; proposed cohort/label, not approved final findings"

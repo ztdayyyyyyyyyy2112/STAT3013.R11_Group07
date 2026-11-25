@@ -36,6 +36,10 @@ def run(features_path: Path, labels_path: Path, out: Path) -> dict:
     if not (merged.feature_max_event_time_utc < merged.snapshot_date).all():
         raise ValueError("Feature timeline crosses the snapshot boundary")
     out.mkdir(parents=True, exist_ok=True)
+    # Sessions per week over the configured confirmation horizon (2 weeks under
+    # 4+2+2, 4 weeks under 4+2+4), taken from each row's own label window.
+    horizon_weeks = (pd.to_datetime(merged.label_end_utc, utc=True)
+                     - pd.to_datetime(merged.snapshot_date, utc=True)) / pd.Timedelta(weeks=1)
     base = pd.DataFrame({
         "visitorid": merged.visitorid.astype(str),
         "snapshot_date": pd.to_datetime(merged.snapshot_date, utc=True).dt.strftime("%Y-%m-%d"),
@@ -50,7 +54,7 @@ def run(features_path: Path, labels_path: Path, out: Path) -> dict:
         "feature_sessions_4w": merged.feature_sessions_4w,
         "feature_views_4w": merged.feature_views_4w,
         "feature_recency_days": merged.feature_recency_days,
-        "next_engagement": merged.future_sessions / 2.0,
+        "next_engagement": merged.future_sessions / horizon_weeks,
     })
     # No immature outcome is exported to the OLS table. Logit accepts unknowns with null targets
     # and explicitly excludes them inside its own provenance and split checks.
@@ -68,9 +72,9 @@ def run(features_path: Path, labels_path: Path, out: Path) -> dict:
         "data_mode": "real", "features_sha256": sha(features_path), "labels_sha256": sha(labels_path),
         "ols_rows": len(ols), "logit_rows": len(logit),
         "ols_input_sha256": sha(ols_path), "logit_input_sha256": sha(logit_path),
-        "outcome_definition": "Observed number of future sessions in [T,T+2 weeks), divided by 2 to get sessions/week; only mature horizons enter OLS",
+        "outcome_definition": "Observed future sessions divided by the duration in weeks of each mature confirmation window [T, label_end)",
         "predictor_policy": "All predictors are measured before T. Future outcomes are excluded from X.",
-        "decision_status": "Proposed 4+2+2 cohort and label; exploratory evidence only",
+        "decision_status": "4+2+4 cohort and label; exploratory evidence only",
     }
     (out / "input_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest

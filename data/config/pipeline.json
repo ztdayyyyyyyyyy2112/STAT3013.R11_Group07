@@ -20,8 +20,9 @@
     "feature_interval": "[window_start,T)",
     "label_interval": "[T,T+C)"
   },
-  "preferred_scenario_id": "b4_o2_c2_min5_active2_gap30_theta50",
+  "preferred_scenario_id": "b4_o2_c4_min5_active2_gap30_theta50",
   "scenarios": [
+    {"id": "b4_o2_c4", "baseline_weeks": 4, "observation_weeks": 2, "confirmation_weeks": 4},
     {"id": "b4_o2_c2", "baseline_weeks": 4, "observation_weeks": 2, "confirmation_weeks": 2},
     {"id": "b4_o3_c2", "baseline_weeks": 4, "observation_weeks": 3, "confirmation_weeks": 2},
     {"id": "b6_o2_c4", "baseline_weeks": 6, "observation_weeks": 2, "confirmation_weeks": 4}

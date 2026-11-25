@@ -61,8 +61,8 @@ PRIMARY_FEATURE_SET = "full"                         # PROPOSED; ablation always
 
 # --------------------------------------------------------------------------- split (PROPOSED, D-05)
 SPLIT_DEFAULTS = {
-    "val_weeks": 2,            # mature snapshot weeks in validation
-    "test_weeks": 2,           # last mature snapshot weeks, untouched until the end
+    "val_weeks": 1,            # mature snapshot weeks in validation (4+2+4 leaves 10 mature weeks)
+    "test_weeks": 1,           # last mature snapshot week, untouched until the end
     "visitor_fractions": (0.5, 0.25, 0.25),   # train / validation / test visitor buckets
 }
 

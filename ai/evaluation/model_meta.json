@@ -1,7 +1,7 @@
 {
-  "model_version": "ghost-xgboost-cal-27f274df",
+  "model_version": "ghost-xgboost-cal-7751ac34",
   "path": "ai/models/ghost_model.joblib",
-  "sha256": "9203bf90b4bdd825a743d329d2537cfcdeed1558f301ee2fb31d473920be5f80",
+  "sha256": "d6813eb1366532f7f5ef5abe243d61fa9b26f8de13f7cf379b3c168d3afa4611",
   "features": [
     "feature_sessions_1w",
     "feature_sessions_2w",
@@ -46,14 +46,14 @@
     "feature_total_events_pre"
   ],
   "threshold": {
-    "operating_threshold": 0.05,
+    "operating_threshold": 0.09,
     "rule": "min expected cost on validation, C_FN=5.0, C_FP=1.0",
-    "f1_max_threshold": 0.48,
+    "f1_max_threshold": 0.29,
     "bands": {
-      "high": 0.05,
-      "medium": 0.05
+      "high": 0.09,
+      "medium": 0.09
     },
     "band_rule": "high >= operating threshold; medium >= threshold where validation recall >= 80%; else low"
   },
-  "split_version": "visitor-temporal-v1_tr2015-07-06_va2015-07-27_te2015-08-24_f50-25-25_s3013"
+  "split_version": "visitor-temporal-v2_tr2015-06-22_va2015-07-20_te2015-08-17_f50-25-25_s3013"
 }

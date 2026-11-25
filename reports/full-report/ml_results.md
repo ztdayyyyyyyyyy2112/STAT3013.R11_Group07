@@ -1,5 +1,7 @@
 # 8. Machine-learning prediction of Ghost status (RQ3) — results draft
 
+> **Historical 4+2+2 results — superseded.** This draft contains old split sizes and metrics. Use [`research/window424_analysis.md`](../../research/window424_analysis.md) and the current `ai/evaluation/` artifacts for the working 4+2+4 results; refresh this chapter before submission.
+
 *Owner: Trần Quốc Kiệt. Method: `ml_methods.md`. Values below come from the 20 November 2026 real-data rerun in `ai/evaluation/` (E-07/E-08). The 4+2+2 window is a proposed setting. A 4+2+4 sensitivity run, if performed, must be reported separately.*
 
 ## 8.1 Data used for modeling

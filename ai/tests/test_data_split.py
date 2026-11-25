@@ -52,8 +52,8 @@ def test_to_matrix_handles_bool_and_inf():
 def test_splits_are_time_ordered_and_purged(parts):
     tr, va, te = parts["train"], parts["validation"], parts["test"]
     assert tr.snapshot_date.max() < va.snapshot_date.min() <= va.snapshot_date.max() < te.snapshot_date.min()
-    assert tr.label_end_utc.max() < va.snapshot_date.min()
-    assert va.label_end_utc.max() < te.snapshot_date.min()
+    assert tr.label_end_utc.max() <= va.snapshot_date.min()
+    assert va.label_end_utc.max() <= te.snapshot_date.min()
 
 
 def test_visitors_never_cross_splits(parts):
@@ -104,4 +104,18 @@ def test_time_only_sensitivity_keeps_more_rows(supervised, parts):
     from ai.training.split import plan_split
     loose = split_frames(supervised, plan_split(supervised, visitor_disjoint=False))
     assert sum(len(v) for v in loose.values()) > sum(len(v) for v in parts.values())
-    assert loose["train"].label_end_utc.max() < loose["validation"].snapshot_date.min()
+    assert loose["train"].label_end_utc.max() <= loose["validation"].snapshot_date.min()
+
+def test_four_week_labels_fit_in_ten_mature_weeks():
+    from ai.training.split import plan_split
+
+    dates = pd.date_range("2015-06-15", periods=10, freq="W-MON", tz="UTC")
+    data = pd.DataFrame([
+        {"customer_id": str(visitor), "snapshot_date": date,
+         "label_end_utc": date + pd.Timedelta(weeks=4), "y": visitor % 2}
+        for date in dates for visitor in range(100)
+    ])
+    parts = split_frames(data, plan_split(data, val_weeks=1, test_weeks=1))
+    assert list(parts["train"].snapshot_date.unique()) == list(dates[:2])
+    assert list(parts["validation"].snapshot_date.unique()) == [dates[5]]
+    assert list(parts["test"].snapshot_date.unique()) == [dates[9]]
