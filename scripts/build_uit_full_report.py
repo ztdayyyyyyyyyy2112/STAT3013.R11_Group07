@@ -39,22 +39,25 @@ FORECAST = read_json("research/forecasting/analysis_manifest.json")
 ML = read_json("ai/evaluation/metrics.json")
 TREE = read_json("research/baselines/decision_tree_results.json")
 NB = read_json("research/baselines/gaussian_nb_results.json")
+SPLIT = read_json("ai/evaluation/split_manifest.json")["splits"]
+COUNTS = read_json("data/processed/manifest.json")["rows"]["label_status"]
+WINDOWS = read_json("data/processed/cohort_flow.json")["window_comparison"]
+SENSITIVITY = read_json("data/processed/sensitivity.json")
 
 FIGURE_MAP = {
-    "study_design": (FIGURES / "study_design.png", "Proposed four plus two plus two week design and the score time T, E-02."),
+    "study_design": (FIGURES / "study_design.png", "Four plus two plus four week design and the score time T, E-02."),
     "cohort_status": (FIGURES / "cohort_status.png", "History-eligible snapshots by operational status; rows are not distinct people, E-02."),
     "visitor_recency": (FIGURES / "visitor_recency.png", "Pre-T recency among selected mature Ghost and Active visitors, E-04."),
-    "ols_residuals": (REGRESSION / "ols_residuals.png", "Held-out OLS residual and normal Q-Q diagnostics, E-05."),
+    "ols_residuals": (REGRESSION / "ols_residuals.png", "OLS residual and normal Q-Q diagnostics, E-05."),
     "logit_roc_pr": (REGRESSION / "logit_roc_pr.png", "Ghost-versus-rest logistic discrimination on its later test set, E-05."),
-    "weekly_forecast": (FIGURES / "weekly_forecast.png", "Twelve mature weekly rates and a two-week naive continuation, E-06."),
-    "benchmark_pr_auc": (FIGURES / "benchmark_pr_auc.png", "Shared-test precision-recall comparison; 430 Ghost/Active rows, E-07 and E-11."),
+    "weekly_forecast": (FIGURES / "weekly_forecast.png", f"{FORECAST['n_mature_weeks']} mature weekly rates and a two-week naive continuation, E-06."),
+    "benchmark_pr_auc": (FIGURES / "benchmark_pr_auc.png", f"Shared-test average precision for {SPLIT['test']['rows']} Ghost/Active rows, E-07 and E-11."),
     "model_pr_roc": (AI_FIGURES / "model_pr_roc.png", "Held-out precision-recall and ROC curves for primary candidates, E-07."),
     "model_confusion_matrix": (AI_FIGURES / "model_confusion_matrix.png", "Selected XGBoost plus Platt confusion matrix at the validation cost threshold, E-07."),
     "model_calibration": (AI_FIGURES / "model_calibration.png", "Held-out calibration diagnostic for the selected model, E-07."),
     "ablation_pr_auc": (FIGURES / "ablation_pr_auc.png", "Full, named-component and observation-only feature sensitivity, E-07."),
     "importance": (AI_FIGURES / "shap_or_permutation_importance.png", "Global feature attribution; descriptive, not causal, E-07."),
     "architecture": (FIGURES / "architecture.png", "Research data, model, API and web interface flow, E-08 and E-10."),
-    "dashboard_real": (FIGURES / "dashboard_real.png", "Real-data overview on the local demonstration machine, E-10."),
 }
 
 
@@ -385,21 +388,22 @@ def add_named_tables(doc: Document, key: str) -> None:
         ], [1.15, 2.15, 3.0])
     elif key == "cohort_status":
         add_table(doc, "Operational status counts in the history-eligible cohort, E-02", ["Status", "Snapshots", "Maturity / interpretation"], [
-            ["Inactive", "71,301", "Mature; no confirmation events"],
-            ["Active", "9,263", "Mature; rule does not mark decline"],
-            ["Recovered", "2,716", "Mature; improvement after observation decline"],
-            ["Ghost", "2,619", "Mature; nonzero future activity below the ratio threshold"],
-            ["Unknown", "11,590", "Right-censored or otherwise immature; null target"],
+            ["Inactive", fmt(COUNTS["inactive"], 0), "Mature; no confirmation events"],
+            ["Active", fmt(COUNTS["active"], 0), "Mature; rule does not mark decline"],
+            ["Recovered", fmt(COUNTS["recovered"], 0), "Mature; improvement after observation decline"],
+            ["Ghost", fmt(COUNTS["ghost"], 0), "Mature; nonzero future activity below the ratio threshold"],
+            ["Unknown", fmt(COUNTS["unknown"], 0), "Right-censored or otherwise immature; null target"],
         ], [1.3, 1.1, 3.9])
     elif key == "sensitivity":
         add_table(doc, "Window sensitivity in the audit cohort, E-02", ["B+O+C weeks", "History-eligible", "Censored", "Reading"], [
-            ["4+2+2", "97,489", "11,590", "Main proposed scenario"],
-            ["4+3+2", "100,140", "13,511", "Longer observation"],
-            ["6+2+4", "128,323", "40,043", "Longer confirmation loses mature outcomes"],
+            ["+".join(re.findall(r"\d+", row["scenario_id"])), fmt(row["history_eligible_snapshots"], 0),
+             fmt(row["censored_history_eligible_snapshots"], 0),
+             "Primary scenario" if row["scenario_id"] == SENSITIVITY["scenario"] else "Sensitivity comparison"]
+            for row in WINDOWS
         ], [1.1, 1.25, 1.1, 2.85])
         add_table(doc, "Threshold and inferred-session-gap sensitivity, E-02", ["Parameter", "Setting", "Ghost snapshots"], [
-            ["Ratio threshold", "0.5 / 0.4 / 0.3", "2,619 / 1,740 / 1,188"],
-            ["Session gap", "15 / 30 / 60 minutes", "2,998 / 2,619 / 2,310"],
+            ["Ratio threshold", "0.5 / 0.4 / 0.3", " / ".join(fmt(row["counts"].get("ghost", 0), 0) for row in SENSITIVITY["label_sensitivity"] if row["engagement_unit"] == "sessions")],
+            ["Session gap", "15 / 30 / 60 minutes", " / ".join(fmt(row["label_counts"].get("ghost", 0), 0) for row in SENSITIVITY["session_gap_sensitivity"])],
         ], [1.6, 2.15, 2.55])
     elif key == "descriptive":
         names = {"feature_sessions_4w": "Sessions 4w", "feature_views_4w": "Views 4w",
@@ -420,11 +424,11 @@ def add_named_tables(doc: Document, key: str) -> None:
     elif key == "inference":
         test = STAT["tests"][0]
         add_table(doc, "Independent visitor-level recency contrast, E-04", ["Quantity", "Result", "Scope"], [
-            ["Ghost / Active visitors", "371 / 896", "One latest mature snapshot per visitor"],
-            ["Mean recency", "16.54 / 5.14 days", "Ghost / Active"],
-            ["Mean difference", "11.39 days", "Ghost minus Active"],
-            ["Welch 95% CI", "[10.27, 12.51] days", "Two-sided mean difference"],
-            ["Welch t; p-value", f"{fmt(test['statistic'], 2)}; 7.52 × 10⁻⁶³", "df approximately 414"],
+            ["Ghost / Active visitors", f"{AUDIT['ghost_visitors']:,} / {AUDIT['active_visitors']:,}", "One latest mature snapshot per visitor"],
+            ["Mean recency", f"{AUDIT['ghost_mean_days']:.2f} / {AUDIT['active_mean_days']:.2f} days", "Ghost / Active"],
+            ["Mean difference", f"{AUDIT['mean_difference_days']:.2f} days", "Ghost minus Active"],
+            ["Welch 95% CI", f"[{test['ci_low']:.2f}, {test['ci_high']:.2f}] days", "Two-sided mean difference"],
+            ["Welch t; p-value", f"{test['statistic']:.2f}; {test['p_value']:.2e}", f"df approximately {AUDIT['welch_df']:,.0f}"],
             ["Cohen d", fmt(test["effect_size"], 2), "Standardized descriptive effect"],
         ], [1.65, 1.65, 3.0])
     elif key == "ols":
@@ -435,8 +439,8 @@ def add_named_tables(doc: Document, key: str) -> None:
                     f"[{fmt(c['ci_low'], 4)}, {fmt(c['ci_high'], 4)}]", f"{c['p_value']:.2g}"] for c in coeff],
                   [1.6, 1.0, 2.3, 1.4])
         add_table(doc, "OLS fit and later test behavior, E-05", ["Model", "Train R²", "Test RMSE", "Negative test predictions"], [
-            ["Sessions-only", fmt(OLS["models"]["simple"]["r_squared"]), fmt(OLS["models"]["simple"]["test_rmse"]), "5,928"],
-            ["Multiple", fmt(OLS["models"]["multiple"]["r_squared"]), fmt(OLS["models"]["multiple"]["test_rmse"]), "5,927"],
+            ["Sessions-only", fmt(OLS["models"]["simple"]["r_squared"]), fmt(OLS["models"]["simple"]["test_rmse"]), fmt(OLS["models"]["simple"]["test_negative_predictions"], 0)],
+            ["Multiple", fmt(OLS["models"]["multiple"]["r_squared"]), fmt(OLS["models"]["multiple"]["test_rmse"]), fmt(OLS["models"]["multiple"]["test_negative_predictions"], 0)],
         ], [1.5, 1.1, 1.3, 2.4])
     elif key == "logit":
         add_table(doc, "Logistic odds ratios for Ghost versus other mature states, E-05",
@@ -447,20 +451,21 @@ def add_named_tables(doc: Document, key: str) -> None:
         t = LOGIT["test"]
         add_table(doc, "Logistic test support and threshold behavior, E-05", ["Metric", "Value", "Interpretation"], [
             ["Test / Ghost", f"{t['n']:,} / {t['positive_support']:,}", "Ghost versus all other mature labels"],
-            ["PR-AUC / ROC-AUC", f"{t['pr_auc_average_precision']:.3f} / {t['roc_auc']:.3f}", "Prevalence 0.020"],
-            ["Precision / recall", f"{t['precision']:.3f} / {t['recall']:.3f}", "Validation threshold 0.10"],
-            ["TP / FP / FN", "18 / 76 / 298", "Most positives missed at this threshold"],
+            ["PR-AUC / ROC-AUC", f"{t['pr_auc_average_precision']:.3f} / {t['roc_auc']:.3f}", f"Prevalence {t['prevalence']:.3f}"],
+            ["Precision / recall", f"{t['precision']:.3f} / {t['recall']:.3f}", f"Validation threshold {t['threshold']:.2f}"],
+            ["TP / FP / FN", " / ".join(fmt(t["confusion_matrix"][i][j], 0) for i, j in ((1, 1), (0, 1), (1, 0))), "Most positives missed at this threshold"],
         ], [1.8, 1.6, 2.9])
     elif key == "forecast":
         m = FORECAST["test_metrics"]["selected"]
-        add_table(doc, "Naive rate forecast from three historical origins, E-06", ["Mature weeks", "Origins", "MAE", "RMSE", "sMAPE"], [
-            ["12", str(m["n"]), fmt(m["mae"], 5), fmt(m["rmse"], 5), f"{m['smape_percent']:.2f}%"],
+        add_table(doc, "Naive rate forecast from two historical origins, E-06", ["Mature weeks", "Origins", "MAE", "RMSE", "sMAPE"], [
+            [str(FORECAST["n_mature_weeks"]), str(m["n"]), fmt(m["mae"], 5), fmt(m["rmse"], 5), f"{m['smape_percent']:.2f}%"],
         ], [1.3, 1.0, 1.25, 1.25, 1.5])
     elif key == "ml_split":
         add_table(doc, "Purged visitor-disjoint ML split, E-07", ["Partition", "Rows", "Ghost", "Purpose"], [
-            ["Train", "2,214", "433", "Fit estimators and training-fold calibration"],
-            ["Validation", "454", "119", "Select family and operating threshold"],
-            ["Test", "430", "109", "Final later-visitor evaluation"],
+            [name.title(), fmt(SPLIT[name]["rows"], 0), fmt(SPLIT[name]["positives"], 0), purpose]
+            for name, purpose in (("train", "Fit estimators and training-fold calibration"),
+                                  ("validation", "Select family and operating threshold"),
+                                  ("test", "Final later-visitor evaluation"))
         ], [1.2, 1.0, 1.0, 3.1])
     elif key == "models":
         select = {x["name"]: x for x in ML["comparison"] if x["name"] in
@@ -474,15 +479,17 @@ def add_named_tables(doc: Document, key: str) -> None:
                   fmt(TREE["test"]["precision"]), fmt(TREE["test"]["recall"])],
                  ["Gaussian NB", fmt(NB["test"]["pr_auc"]), fmt(NB["test"]["roc_auc"]),
                   fmt(NB["test"]["precision"]), fmt(NB["test"]["recall"])]]
-        add_table(doc, "Shared Ghost/Active test metrics (n=430; 109 Ghost), E-07 and E-11",
+        add_table(doc, f"Shared Ghost/Active test metrics (n={SPLIT['test']['rows']}; {SPLIT['test']['positives']} Ghost), E-07 and E-11",
                   ["Candidate", "PR-AUC", "ROC-AUC", "Precision", "Recall"], rows,
                   [2.05, 1.0, 1.0, 1.1, 1.15])
     elif key == "ablation":
+        scores = {row["feature_set"]: row["test_pr_auc"] for row in ML["comparison"]
+                  if row["name"] in ("xgboost", "ablation:xgboost")}
         add_table(doc, "XGBoost feature-set sensitivity on the same test, E-07",
                   ["Feature set", "Inputs", "Test PR-AUC", "Interpretation"], [
-                      ["Full", "41", "0.928", "Baseline history included"],
-                      ["No named target components", "overlapping history", "0.909", "Baseline reconstructable"],
-                      ["Observation-only", "10", "0.607", "Baseline-period counts removed"],
+                      ["Full", "41", fmt(scores["full"]), "Baseline history included"],
+                      ["No named target components", "36", fmt(scores["no_target_components"]), "Overlapping history retained"],
+                      ["Observation-only", "10", fmt(scores["observation_only"]), "Baseline-period counts removed"],
                   ], [2.0, 1.15, 1.15, 2.0])
     elif key == "api":
         add_table(doc, "Real research API demonstrated locally, E-10", ["Route", "Purpose"], [
@@ -495,12 +502,11 @@ def add_named_tables(doc: Document, key: str) -> None:
             ["GET /api/model/metrics", "Held-out support, curves, threshold and calibration"],
         ], [2.7, 3.6])
     elif key == "verification":
-        add_table(doc, "Local software verification on 20 November 2026, E-10", ["Check", "Observed result"], [
-            ["Python suite", "122 passed"],
-            ["Frontend lint and production build", "Passed in real mode"],
+        add_table(doc, "Local software verification on 25 November 2026, E-10", ["Check", "Observed result"], [
+            ["Python suite", "127 passed"],
+            ["Frontend lint and type checks", "Passed"],
             ["Detail-file structural checker", "97,489 passed; zero missing or invalid"],
             ["Real API smoke", "Seven routes; valid prediction; 404 and 422"],
-            ["Browser walkthrough", "Desktop and mobile routes loaded without page errors"],
         ], [2.5, 3.8])
     elif key == "evidence":
         add_table(doc, "Evidence register summary", ["ID", "Research output", "Repository path"], [

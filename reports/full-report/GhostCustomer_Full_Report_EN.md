@@ -1,10 +1,10 @@
 # Ghost Customer Prediction from E Commerce Event Histories
 
-STAT3013 full project report, 20 November 2026. The statistical setting is a **proposed** operational definition. All reported numerical results were reproduced from the pinned Retailrocket event file on the local demo machine. The report documents the completed research prototype and its unresolved scientific decisions; it does not claim lecturer approval, a completed SEM analysis, or completed academic integrity checks.
+STAT3013 full project report, 25 November 2026. The statistical setting is a **proposed** operational definition. All reported numerical results were reproduced from the pinned Retailrocket event file on the local demo machine. The report documents the completed research prototype and its unresolved scientific decisions; it does not claim lecturer approval, a completed SEM analysis, or completed academic integrity checks.
 
 ## Abstract
 
-We study whether recent visitor behavior in an e-commerce event log can identify a later decline in engagement. We construct a weekly visitor snapshot with features measured before time T and a future operational Ghost label based on a visitor's own baseline session rate. The verified Retailrocket file contains 2,756,101 events. The proposed 4+2+2-week setting yields 97,489 history-eligible snapshots, of which 85,899 have a fully observed future horizon. Descriptive and visitor-level inferential analyses show higher pre-T recency for Ghost than Active visitors. An OLS regression describes future sessions per week; a separate logistic regression examines Ghost against all other mature states. A 12-week mature Ghost-rate series supports a short naive forecast, but does not support a defensible ARIMA selection. A visitor-disjoint temporal classifier reaches test PR-AUC 0.928 for the proposed Ghost-versus-Active task; when limited to observation-period counts, PR-AUC falls to 0.607. This large reduction shows that baseline history is central to the full model's score. The web demo serves the processed data and trained model through seven real API routes. The work demonstrates a reproducible analytic pipeline; it does not establish true churn, causal effects, or a production-ready intervention policy.
+We study whether recent visitor behavior in an e-commerce event log can identify a later decline in engagement. We construct a weekly visitor snapshot with features measured before time T and a future operational Ghost label based on a visitor's own baseline session rate. The verified Retailrocket file contains 2,756,101 events. The proposed 4+2+4-week setting yields 97,489 history-eligible snapshots, of which 72,711 have a fully observed future horizon. Descriptive and visitor-level inferential analyses show higher pre-T recency for Ghost than Active visitors. An OLS regression describes future sessions per week; a separate logistic regression examines Ghost against all other mature states. A 10-week mature Ghost-rate series supports a short naive forecast, but does not support a defensible ARIMA selection. A visitor-disjoint temporal classifier reaches test PR-AUC 0.910 for the proposed Ghost-versus-Active task; when limited to observation-period counts, PR-AUC falls to 0.807. This large reduction shows that baseline history is central to the full model's score. The web demo serves the processed data and trained model through seven real API routes. The work demonstrates a reproducible analytic pipeline; it does not establish true churn, causal effects, or a production-ready intervention policy.
 
 **Keywords:** customer engagement, operational Ghost label, temporal validation, class imbalance, statistical inference, forecasting, machine learning.
 
@@ -32,7 +32,7 @@ The unit called a “customer” in the interface is an anonymous Retailrocket v
 
 ### 2.1 Churn prediction and class imbalance
 
-Neslin and colleagues [1] compared predictive accuracy of churn models on validation data. Their study motivates a common held-out comparison, but its outcome and business context differ from this operational event-log label. Burez and Van den Poel [2] studied class imbalance in customer churn prediction. Here the balance changes sharply with the denominator: Ghost is 2.7% of all displayed snapshots, 2.0% of the logistic test sample, and 25.4% of the Ghost-versus-Active ML test sample. Those are three different tasks and cannot share one unqualified prevalence claim.
+Neslin and colleagues [1] compared predictive accuracy of churn models on validation data. Their study motivates a common held-out comparison, but its outcome and business context differ from this operational event-log label. Burez and Van den Poel [2] studied class imbalance in customer churn prediction. Here the balance changes sharply with the denominator: Ghost is 6.0% of all history-eligible snapshots, 6.6% of the logistic test sample, and 46.4% of the Ghost-versus-Active ML test sample. Those are three different tasks and cannot share one unqualified prevalence claim.
 
 Saito and Rehmsmeier [3] explain why precision-recall analysis is useful when the positive class is uncommon. We report PR-AUC with support and prevalence alongside ROC-AUC, precision, recall, and threshold. Guo and colleagues [4] discuss probability calibration. We check Brier score and calibration bins rather than assuming that good ranking yields reliable probabilities. Lundberg and Lee [5] introduced SHAP as a model attribution framework. We use attribution to describe fitted model behavior, not to identify causes or a customer’s reasons for inactivity.
 
@@ -40,7 +40,7 @@ No cited study validates the Ghost threshold for this dataset. The definition, s
 
 ### 2.2 Calibration, explanation, and the study gap
 
-The literature supports evaluation principles rather than this exact outcome. A churn model can be compared fairly only after its target, population, time horizon, and costs have been specified. In this project the target is derived from the same event log used as input. The positive fraction ranges from approximately 2% to 25% across the regression and classification tasks because the reference class and split differ. Average precision therefore appears beside each task's support and prevalence. A high ROC-AUC alone would not reveal the number of false alerts at the selected threshold.
+The literature supports evaluation principles rather than this exact outcome. A churn model can be compared fairly only after its target, population, time horizon, and costs have been specified. In this project the target is derived from the same event log used as input. The positive fraction ranges from approximately 7% to 46% across the regression and classification tasks because the reference class and split differ. Average precision therefore appears beside each task's support and prevalence. A high ROC-AUC alone would not reveal the number of false alerts at the selected threshold.
 
 Probability calibration asks whether a numerical score corresponds to observed frequency under the test task. It does not turn an operational proxy into a verified churn probability. Likewise, a SHAP or permutation ranking describes which observed variables the fitted model uses, while correlated historical windows can share or exchange attribution. The most important gap in this work is therefore construct dependence: the Ghost label is a future-to-baseline ratio, and the full model sees past baseline activity. We explicitly compare a full model with restricted inputs to measure how strongly the impressive ranking depends on that design choice. This makes the project more useful than a score-only comparison, while keeping its conclusions narrower than real-world customer abandonment.
 
@@ -62,9 +62,9 @@ Event timestamps are milliseconds converted to UTC. A session begins after a 30-
 
 Each eligible visitor may contribute more than one Monday snapshot. This is deliberate: a longitudinal research interface needs to show how an individual's activity changes as the cutoff moves. The same design also creates dependence among rows, because adjacent snapshots reuse much of the same history. Descriptive counts in this report refer to snapshots unless explicitly labeled as distinct visitors; no snapshot count is presented as a count of people. For inference, the primary comparison uses one latest mature row per visitor. For predictive evaluation, a visitor ID may enter only one train, validation, or test partition. Those safeguards answer different statistical questions and should not be conflated.
 
-At a snapshot T, the baseline covers four earlier weeks and the observation window covers the two weeks immediately before T. Feature columns may summarize shorter or overlapping windows within that past. The two-week confirmation window after T is used solely to assign later labels. An outcome remains unknown when any required part of this future interval lies beyond observed data. The feature timestamp audit checks that the most recent source event used for a feature does not extend beyond T. A label-delay purge additionally prevents a training outcome from overlapping the start of validation or a validation outcome from overlapping the start of test. Together these rules remove avoidable temporal leakage, while the operational definition itself still needs scientific review.
+At a snapshot T, the baseline covers four earlier weeks and the observation window covers the two weeks immediately before T. Feature columns may summarize shorter or overlapping windows within that past. The four-week confirmation window after T is used solely to assign later labels. An outcome remains unknown when any required part of this future interval lies beyond observed data. The feature timestamp audit checks that the most recent source event used for a feature does not extend beyond T. A label-delay purge additionally prevents a training outcome from overlapping the start of validation or a validation outcome from overlapping the start of test. Together these rules remove avoidable temporal leakage, while the operational definition itself still needs scientific review.
 
-For the proposed 4+2+2 windows, baseline covers four weeks, observation the next two weeks, and confirmation the next two weeks. Across 14 snapshot dates, 97,489 rows satisfy the history rule, corresponding to 27,327 distinct visitor IDs. Of those rows, 85,899 have a mature two-week label and 11,590 are right-censored. The mature labels comprise 71,301 Inactive, 9,263 Active, 2,716 Recovered, and 2,619 Ghost snapshots. Display status `candidate` is a subset of immature/unknown operational rows and should not be added to the mature label counts.
+The primary 4+2+4 setting uses four baseline weeks, two observation weeks, and four confirmation weeks. Across 14 snapshot dates, 97,489 rows satisfy the history rule, representing 27,327 distinct visitor IDs. Of these, 72,711 have a mature label and 24,778 are right-censored. The mature labels comprise 56,374 Inactive, 8,405 Active, 2,122 Recovered, and 5,810 Ghost snapshots. The display status `candidate` is a subset of Unknown and does not add to the mature counts.
 
 [[FIG:cohort_status]]
 
@@ -74,7 +74,7 @@ The label uses sessions per week. If the confirmation rate divided by the baseli
 
 ### 3.3 Label sensitivity and censoring
 
-Window and label sensitivity matter. The alternative 4+3+2 setting gives 100,140 history-eligible snapshots and 13,511 censored rows. The 6+2+4 setting gives 128,323 history-eligible rows but 40,043 censored rows, showing the coverage cost of a longer confirmation period. Under the current session label, changing θ from 0.5 to 0.4 or 0.3 changes the Ghost count from 2,619 to 1,740 or 1,188. A 15/30/60-minute session gap yields 2,998/2,619/2,310 Ghost rows. These counts are sensitivity evidence, not prevalence estimates for an external population. The exact inputs and flow are in E-01 and E-02.
+The 4+2+2 comparison retains 85,899 mature snapshots and censors 11,590. The 4+3+2 setting retains 86,629 mature snapshots and censors 13,511. The 6+2+4 setting retains 88,280 mature snapshots and censors 40,043. Under the primary 4+2+4 session label, changing θ from 0.5 to 0.4 or 0.3 changes the Ghost count from 5,810 to 5,322 or 3,549. A 15/30/60-minute session gap yields 6,079/5,810/5,561 Ghost rows. These are sensitivity counts for the study cohort. E-01 and E-02 record the inputs and cohort flow.
 
 [[TABLE:sensitivity]]
 
@@ -84,7 +84,7 @@ The alternatives demonstrate why a large raw cohort is not necessarily a stronge
 
 ### 4.1 Snapshot-level descriptive results
 
-The processed descriptive table has 28 group/metric combinations: four mature label groups by seven features (sessions, views, carts, purchases, active days, recency, and decay ratio). Every row records observed N, missing count/rate, mean, sample standard deviation, quartiles, range, and a histogram. Repeated visitor snapshots remain in these descriptive groups. For example, the 2,619 mature Ghost snapshots have mean four-week sessions 9.19 and mean recency 10.94 days; the 9,263 Active snapshots have corresponding means 8.08 sessions and 4.90 days. These are snapshot-level descriptions. The single missing decay-ratio value among Inactive rows illustrates why missingness is shown explicitly rather than silently imputed.
+The processed descriptive table has 28 group and metric combinations. Each of the four mature label groups has seven pre-T features: sessions, views, carts, purchases, active days, recency, and decay ratio. The table includes observed sample size, missingness, mean, sample standard deviation, quartiles, and a histogram. Groups still contain repeated visitor snapshots.
 
 [[TABLE:descriptive]]
 
@@ -92,7 +92,7 @@ The mean and median should be read together because event intensity has a long r
 
 ### 4.2 Visitor-level hypothesis test
 
-We pre-specified a two-sided comparison of mean pre-T recency between Ghost and Active operational groups. To avoid treating repeated snapshots as independent, we choose each visitor's latest mature snapshot before selecting Ghost or Active rows. This leaves 371 Ghost and 896 Active visitors. We use a Welch t test and a 95% Welch confidence interval for the mean difference; Cohen's d describes standardized size. The Ghost mean is 16.54 days and the Active mean is 5.14 days. The Ghost-minus-Active difference is 11.39 days [10.27, 12.51], t = 20.02 with approximately 414 degrees of freedom, p = 7.52 × 10^-63, d = 1.71. The Ghost share among these 1,267 selected visitors is 0.293 with Wilson 95% interval [0.268, 0.318].
+We compare mean pre-T recency between Ghost and Active using each visitor's latest mature snapshot, then select the two groups. This leaves 1,271 Ghost and 1,008 Active visitors. Mean recency is 17.15 and 5.62 days, respectively. The Welch mean difference is 11.53 days (95% CI [10.89, 12.17], t = 35.48, df approximately 1,691, p = 1.44 × 10^-206). Cohen's d is 1.37. The Ghost share among the 2,279 selected visitors is 0.558 (Wilson 95% CI [0.537, 0.578]).
 
 [[FIG:visitor_recency]]
 
@@ -106,9 +106,9 @@ The null hypothesis is equality of mean pre-T recency between the two selected v
 
 ### 5.1 Continuous future engagement
 
-The OLS response is the number of sessions in the two-week confirmation interval divided by two, measured in sessions per week. Predictors are four-week pre-T sessions, four-week views, and recency days. The model includes only mature outcomes, checks that each feature timestamp precedes T, and separates a later test period from training. Train outcomes end no later than 3 August 2015; test snapshots begin 17 August. Test visitors observed in training are removed. This leaves 43,536 training rows from 15,689 visitors and 17,368 test rows.
+The OLS response is future sessions divided by the four-week confirmation horizon. Predictors are four-week pre-T sessions, four-week pre-T views, and recency. Training outcomes mature no later than 3 August 2015, and test snapshots begin 10 August. Test visitors seen in training are removed. This leaves 29,290 training rows from 12,412 visitors and 12,915 test rows.
 
-The multiple OLS fit has training R² = 0.355 and test RMSE = 0.870 sessions/week; a one-predictor sessions-only fit has test RMSE = 0.871. Clustered covariance accounts for repeated training visitors. The `sessions_4w` coefficient is 0.127 [0.106, 0.148] sessions/week per prior session. The views and recency coefficients have intervals crossing zero after adjustment. VIF values are below 1.6 for these predictors. The multiple fit produces 5,927 negative predictions on the held-out set, which cannot represent a count. This is a methodological limitation: OLS is an explanatory comparison, not the production forecast of session counts. A count or hurdle model would be a stronger follow-up.
+The multiple OLS model has training R² of 0.372 and test RMSE of 0.718 sessions/week. The sessions-only model has test RMSE of 0.718 at the same precision. Clustered covariance accounts for repeated training visitors. The prior-session coefficient is 0.118 (95% CI [0.094, 0.141]). The adjusted intervals for views and recency include zero. VIFs are at most 1.69. The multiple model predicts negative session rates for 4,047 of 12,915 test rows, limiting its use to an explanatory comparison.
 
 [[TABLE:ols]]
 
@@ -120,7 +120,7 @@ The outcome is nonnegative, skewed and often close to zero, whereas an unconstra
 
 The separate logistic model uses Ghost = 1 versus all other mature statuses = 0. It includes prior four-week sessions, pre-T recency, and the observation-minus-baseline change in sessions per week. The temporal split purges any training label ending after the validation start and any validation label ending after the test start, then removes visitors seen in earlier partitions. The fitted coefficients use cluster-robust covariance when visitors repeat in training. This sample is deliberately different from the Ghost-versus-Active ML classification task.
 
-The logistic test has 15,470 rows and 316 Ghost labels (prevalence 0.0204). ROC-AUC is 0.761 and PR-AUC is 0.0964, above the no-skill prevalence 0.0204. The validation-selected 0.10 threshold yields precision 0.191 and recall 0.057: 18 true positives, 76 false positives, and 298 missed Ghost rows. This operating point is too insensitive for a practical warning service. Coefficients and odds ratios describe conditional associations under this operational label. They do not justify a causal conclusion. E-05 contains both regression outputs, residual diagnostics, and input hashes.
+The logistic test has 5,816 rows, including 386 Ghost labels (prevalence 0.066). ROC-AUC is 0.671 and PR-AUC is 0.156. The validation-selected threshold of 0.10 yields precision 0.148 and recall 0.373, with 144 true positives, 826 false positives, and 242 missed Ghost rows. The operating point is unsuitable for practical alerts. E-05 contains the coefficients, diagnostics, and input hashes.
 
 [[TABLE:logit]]
 
@@ -130,15 +130,15 @@ The logistic task includes Inactive and Recovered as negatives, unlike the prima
 
 ## 6 Weekly forecasting
 
-For each Monday T, the weekly series divides known Ghost labels by known mature Active/Ghost/Recovered/Inactive labels in that bin. Unknown and immature bins are not set to zero. The preparation step finds 12 mature weekly points and no missing Mondays. At each historical forecast origin, only labels whose confirmation interval ended strictly before that origin are available. This label delay is essential; using a rate whose future window overlaps the origin would leak information.
+For each Monday T, the weekly series divides Ghost labels by known mature Active, Ghost, Recovered and Inactive labels. It contains 10 mature weeks with no missing Mondays. A rate becomes available when its half-open confirmation window ends at or before the forecast origin.
 
-The 12-point series cannot support the code's ARIMA candidate selection criterion of at least 40 weeks and a separate validation segment. We therefore evaluate a naive last-available-mature-rate method at three historical origins. Its holdout MAE is 0.00255 (0.255 percentage points), RMSE 0.00328, and sMAPE 8.15%. The two displayed future weeks use the last mature rate, approximately 3.24%. No interval is provided because the naive rule has no justified predictive interval here. This baseline is a reproducible RQ4 result with weak generalizability, not evidence of a reliable long-range forecast. A longer, consistently labeled time series would be required for ARIMA or seasonality assessment.
+The 10 mature rates support a last-mature-value forecast with two backtest origins. MAE is 0.00828 (0.828 percentage points), RMSE is 0.00841, and sMAPE is 10.10%. The two exploratory future points carry forward the last mature rate of 8.63%. The short history does not support ARIMA selection, and the naive forecast has no prediction interval.
 
 [[FIG:weekly_forecast]]
 
 [[TABLE:forecast]]
 
-The forecast origin requires particular care. The weekly rate associated with a snapshot is computed only after its two-week confirmation horizon ends. At an origin, the latest calendar-week observation is not necessarily the latest *known* rate. The backtest admits only rows with `label_end` strictly before the origin and then carries the last mature rate across the resulting delay gap. This avoids using information that would not yet have existed in a real forecast. Three historical origins are enough to exercise the rule and give a transparent error estimate, but not enough to infer a seasonality pattern or stable distribution of errors. The unchanging two-week displayed prediction is a consequence of the naive method and should not be mistaken for a stable business process.
+The forecast origin requires particular care. The weekly rate associated with a snapshot is computed only after its four-week confirmation horizon ends. At an origin, the latest calendar-week observation is not necessarily the latest *known* rate. The backtest admits only rows with `label_end` at or before the origin and then carries the last mature rate across the resulting delay gap. This avoids using information that would not yet have existed in a real forecast. Two historical origins exercise the rule and give a preliminary error estimate. They cannot establish seasonality or a stable distribution of errors. The unchanging two-week displayed prediction is a consequence of the naive method and should not be mistaken for a stable business process.
 
 ## 7 Structural equation modeling status
 
@@ -152,7 +152,7 @@ An SEM path diagram would imply that observed variables measure particular laten
 
 The primary supervised task is Ghost versus Active among fully mature rows. Inactive, Recovered, and Unknown rows are excluded from this model comparison. Every candidate uses the same pre-T feature matrix and visitor-disjoint temporal split. The split first chooses later weeks for validation and test, purges labels overlapping subsequent starts, and assigns visitors to only one partition. Preprocessing, including imputation and calibration, is trained without test data. Hyperparameters and the served family are selected using validation PR-AUC; the operating threshold is selected using validation costs, with a stated false-negative cost of five and false-positive cost of one.
 
-The split retains 2,214 training rows (433 Ghost), 454 validation rows (119 Ghost), and 430 test rows (109 Ghost). Its test prevalence is 0.254. The selected XGBoost plus Platt model has test PR-AUC 0.928 [0.887, 0.958] by 500 visitor-bootstrap resamples; ROC-AUC 0.970 and Brier 0.059. The EDS rule reaches PR-AUC 0.802, logistic regression 0.899, random forest 0.929, and the majority no-skill baseline 0.254. Thành's Decision Tree and Lâm's Gaussian NB were rerun from the same local `modeling_snapshots.csv`: test PR-AUC 0.927 and 0.667. Overlapping confidence intervals do not establish that XGBoost outperforms random forest or Decision Tree. The validation result, not test ranking, determined the served model.
+The split retains 1,510 training rows (615 Ghost), 352 validation rows (140 Ghost), and 330 test rows (153 Ghost) from the single mature test week of 17 August 2015. The selected XGBoost plus Platt model has PR-AUC 0.910 (95% visitor-bootstrap CI [0.870, 0.939]), ROC-AUC 0.912, and Brier score 0.121. The EDS rule reaches PR-AUC 0.848, ML logistic regression 0.913, random forest 0.920, Decision Tree 0.894, and Gaussian NB 0.808. No-skill PR-AUC equals test prevalence, 0.464. Model selection used validation performance. The visitor bootstrap quantifies uncertainty within the test week and cannot estimate variation across weeks.
 
 [[TABLE:ml_split]]
 
@@ -162,7 +162,7 @@ The split retains 2,214 training rows (433 Ghost), 454 validation rows (119 Ghos
 
 [[TABLE:models]]
 
-At the validation-selected threshold 0.05, the selected model catches all 109 Ghost rows in the 430-row test set, with 74 false positives: precision 0.596, recall 1.000, and F1 0.747. About 43% of rows are alerted. This threshold depends on an unapproved cost ratio and makes medium and high bands coincide. It is suitable for a transparent demo, not for an automatic retention action.
+At the validation-selected threshold of 0.09, XGBoost plus Platt catches 151 of 153 Ghost rows and produces 70 false positives. Precision is 0.683, recall 0.987, and F1 0.807. The threshold flags 221 of 330 rows (67%). Because the high and medium cutoffs coincide, this run produces two bands: high and low. The cost ratio is an experimental assumption.
 
 [[FIG:model_pr_roc]]
 
@@ -174,7 +174,7 @@ The threshold comes from an illustrative false-negative cost five times a false-
 
 [[FIG:model_calibration]]
 
-The most important sensitivity concerns label circularity. The Ghost rule divides future sessions by baseline sessions/week, and the full feature set includes baseline rate and derived decay features. Omitting the named target components while retaining overlapping six- and two-week counts still yields XGBoost test PR-AUC 0.909 because the baseline can be reconstructed. Restricting inputs to ten one- and two-week observation counts, with no baseline-period counts, lowers PR-AUC to 0.607; the analogous logistic model reaches 0.613. The full model therefore predicts the proposed relative label well, but much of its discriminating information comes from the baseline that helps define that label. A reviewer must not interpret 0.928 as an equally strong baseline-independent signal of disengagement. Global SHAP and permutation views are descriptions of the fitted model, not causal explanations.
+The Ghost rule divides future sessions by baseline sessions per week, and baseline-derived features help predict this relative label. Removing the named target components while keeping overlapping history gives XGBoost PR-AUC of 0.899. Restricting XGBoost to ten observation-period features lowers PR-AUC from 0.910 to 0.807. The analogous logistic model reaches 0.808. This gap limits baseline-independent claims. SHAP and permutation importance describe the fitted model.
 
 [[FIG:ablation_pr_auc]]
 
@@ -182,7 +182,7 @@ The most important sensitivity concerns label circularity. The Ghost rule divide
 
 [[FIG:importance]]
 
-Platt calibration is fitted using training out-of-fold predictions and kept only if validation Brier score improves. The reliability plot describes the held-out sample but its high-score bins contain few observations, so it is not a certificate that a displayed percentage transfers to new traffic. Attribution is similarly conditional on a fitted model and correlated features; the importance order may move when overlapping windows are changed. The ablation is the more direct integrity check because it asks how much ranking remains when baseline-period counts cannot be reconstructed. Its decrease of approximately 0.321 PR-AUC points is a central finding and belongs beside the headline model score in any slide or demo.
+Platt calibration is fitted using training out-of-fold predictions and kept only if validation Brier score improves. The reliability plot describes the held-out sample but its high-score bins contain few observations, so it is not a certificate that a displayed percentage transfers to new traffic. Attribution is similarly conditional on a fitted model and correlated features; the importance order may move when overlapping windows are changed. The ablation is the more direct integrity check because it asks how much ranking remains when baseline-period counts cannot be reconstructed. Its decrease of approximately 0.103 PR-AUC points is a central finding and belongs beside the headline model score in any slide or demo.
 
 ## 9 Application and reproducibility
 
@@ -198,9 +198,7 @@ The interface is deliberately separated from the source of scientific evidence. 
 
 ### 9.2 Demonstration and software checks
 
-[[FIG:dashboard_real]]
-
-On 20 November 2026, the pinned raw file reproduced the feature and label SHA-256 values recorded in the original AI run. The structural checker passed all 97,489 detail files. The real-data smoke exercised all seven API routes, checked the model binary hash against `model_meta.json`, and verified successful prediction plus 404 and 422 errors. Python tests passed 122 cases; frontend lint and real-mode production build passed. Desktop and mobile pages loaded without browser page errors. These checks validate software integration and reproducibility on the local machine. They do not approve the scientific decisions.
+On 25 November 2026, the real-data run verified all 97,489 detail files and exercised seven API routes. It checked the model hash, a valid prediction, 404 for an unknown ID, and 422 for an invalid date. The Python suite passed 127 tests. Frontend lint and TypeScript checks passed.
 
 [[TABLE:verification]]
 
@@ -224,9 +222,9 @@ For the research team, the large difference between full and observation-only PR
 
 ## 11 Limitations and next decisions
 
-The strongest limitation is construct validity: Ghost is defined from relative sessions, not observed customer intent. The dataset is from 2015 and its anonymous IDs may not correspond to durable customers. The cohort excludes many low-history visitors, while repeated snapshots create dependence. The 4+2+2 choice is sensitive to session gap, threshold, and confirmation duration. The full model's high PR-AUC depends strongly on baseline history. The classification test has only 430 rows; the weekly forecast has 12 points and three holdout origins. The naive forecast has no interval. OLS gives negative count predictions, and the logistic decision threshold misses most positives. No result supports a causal claim.
+Ghost is defined from relative session activity. The 2015 event log does not observe customer intent, and anonymous visitor IDs may not represent durable customers. The 4+2+4 results are sensitive to the gap, threshold, and confirmation duration. The classifier uses baseline history and is tested on one week. The 10-point forecast has two backtest origins and no prediction interval. OLS generates negative rates, and the separate logistic threshold misses most positives. These observational results do not establish causal effects.
 
-Before calling this a final study, the group must document decisions D-01 through D-05 and review the proposed 4+2+4 sensitivity without mixing its results with 4+2+2. The lecturer must clarify D-07 for SEM. The submission also requires a 7–10-page IEEE paper in the official template, slides, a demo video, Turnitin evidence at or below the required similarity threshold, an AI-generation audit and explanation, and working course-system links. This AI-assisted report requires human editing, citation verification, and audit disclosure.
+Before calling this a final study, the group must document decisions D-01 through D-05 and review the primary 4+2+4 run and report the 4+2+2 comparison separately. The lecturer must clarify D-07 for SEM. The submission also requires a 7–10-page IEEE paper in the official template, slides, a demo video, Turnitin evidence at or below the required similarity threshold, an AI-generation audit and explanation, and working course-system links. This AI-assisted report requires human editing, citation verification, and audit disclosure.
 
 ### 11.1 Internal and external validity
 
@@ -258,7 +256,7 @@ The project now runs end to end on a verified public event file. Its statistical
 
 ## Appendix A Reproduction
 
-The exact raw source SHA-256, scenario parameters, event and label schemas, source license, feature list, data processing commands, split manifest, output hashes, model card, and API contract are stored in `data/config/pipeline.json`, `docs/data_dictionary.md`, `docs/runbook.md`, `ai/evaluation/run_summary.json`, `ai/evaluation/model_meta.json`, `docs/api_contract.md`, and `docs/evidence_register.md`. The local `data/processed/manifest.json` carries hashes of ignored processed artifacts. Figures and tables can be regenerated with `python -m scripts.prepare_real_demo`. The model binary is intentionally not in Git; its SHA-256 is recorded in the model metadata.
+The exact raw source SHA-256, scenario parameters, event and label schemas, source license, feature list, data processing commands, split manifest, output hashes, model card, and API contract are stored in `data/config/pipeline.json`, `docs/data_dictionary.md`, `docs/runbook.md`, `ai/evaluation/run_summary.json`, `ai/evaluation/model_meta.json`, `docs/api_contract.md`, and `docs/evidence_register.md`. The local `data/processed/manifest.json` carries hashes of ignored processed artifacts. Regenerate the analysis with `python -m scripts.prepare_real_demo`, then rebuild the report figures and Word document with `scripts/build_full_report_assets.py` and `scripts/build_uit_full_report.py`. The model binary is intentionally not in Git; its SHA-256 is recorded in the model metadata.
 
 ### A.1 Required source and environment
 
