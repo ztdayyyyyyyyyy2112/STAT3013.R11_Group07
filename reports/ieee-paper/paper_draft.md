@@ -1,5 +1,7 @@
 # Operational Ghost Customer Prediction from Retailrocket Event Histories
 
+> **Historical draft — do not submit or quote as current.** The numeric results below use the earlier 4+2+2 cohort. The current 4+2+4 evidence is in [`research/window424_analysis.md`](../../research/window424_analysis.md). This paper needs a complete result and table refresh before submission.
+
 **STAT3013 conference paper draft for team and lecturer review, 20 November 2026.** The 4+2+2 setting and SEM treatment are not yet approved. This draft is seven pages in its provisional two-column layout; pagination must be checked again in the official IEEE conference template before submission.
 
 ## Abstract

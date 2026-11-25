@@ -4,7 +4,7 @@ Deadline in the team assignment: **before 20 November 2026**. Complete each item
 
 ## Status of the local defense build, 20 November 2026
 
-- [x] Pinned Retailrocket `events.csv` was verified by byte count and SHA-256, and the 4+2+2 pipeline produced 97,489 history-eligible snapshots. Source, license, censoring, and sensitivity are recorded in E-01–E-03.
+- [x] Pinned Retailrocket `events.csv` was verified by byte count and SHA-256. The current 4+2+4 run produced 97,489 history-eligible snapshots; current cohort, label and analysis evidence is in [`research/window424_analysis.md`](../research/window424_analysis.md). The older 4+2+2 feasibility audit is retained as historical context.
 - [x] Visitor-level inferential test, OLS, logistic inference, short-series naive forecast, shared-split ML comparison, and observation-only ablation were reproduced from real artifacts. See E-04–E-08. Their operational definitions remain proposals.
 - [x] The structural artifact checker passed 97,489 detail files; all seven real API routes and 404/422 cases passed. Python: 122 tests passed. Frontend: lint and real-mode production build passed.
 - [x] A 12-slide Vietnamese defense draft was exported and passed package/layout validation: `reports/slides/defense_deck.pptx`. The route-by-route speaker notes are in `reports/defense/brief.md` and `docs/demo_script.md`.

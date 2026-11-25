@@ -1,35 +1,35 @@
 # Ghost Customer Prediction
 
-## Bản tóm tắt để bảo vệ ngày 20 tháng 11 năm 2026
+## Bản tóm tắt nội bộ — cập nhật theo 4+2+4
 
-**Tình trạng:** Bản nghiên cứu và demo chạy được trên dữ liệu Retailrocket thật với thiết lập 4+2+2 tuần đang đề xuất. Các quyết định về cohort, nhãn, split và SEM chưa được phê duyệt. Mọi số liệu bên dưới có nguồn trong repo hoặc artifact tái tạo tại máy, không lấy từ dữ liệu mock.
+**Tình trạng:** Bản nghiên cứu và demo chạy trên dữ liệu Retailrocket thật. Các số liệu dưới đây theo thiết lập làm việc 4+2+4; cohort, nhãn, split và SEM vẫn cần nhóm phê duyệt. Đây là kết quả khám phá theo nhãn vận hành, không phải churn đã xác thực. Bảng số cũ trong bản thảo 4+2+2 không dùng chung với các kết quả dưới đây.
 
 ### Câu trả lời mở đầu trong 30 giây
 
-Nhóm phân tích dấu hiệu giảm tương tác của khách truy cập thương mại điện tử. Từ 2.756.101 sự kiện Retailrocket, nhóm tạo các snapshot hằng tuần; đặc trưng chỉ dùng hành vi trước thời điểm T, còn nhãn Ghost dựa trên 2 tuần xác nhận sau T so với mức hoạt động nền của chính visitor. Chúng tôi kiểm tra khác biệt hành vi, hồi quy, dự báo tỷ lệ Ghost và so sánh các mô hình phân loại. Demo web hiển thị dữ liệu đã xử lý và dự đoán của model đã huấn luyện. Nhãn Ghost là quy ước vận hành trong nghiên cứu, không chứng minh một người đã rời bỏ cửa hàng.
+Nhóm phân tích dấu hiệu giảm tương tác của khách truy cập thương mại điện tử. Từ 2.756.101 sự kiện Retailrocket, nhóm tạo snapshot hằng tuần; đặc trưng chỉ dùng hành vi trước thời điểm T, còn nhãn Ghost dựa trên 4 tuần xác nhận sau T so với baseline của visitor. Chúng tôi thực hiện thống kê, hồi quy, dự báo tỷ lệ Ghost và so sánh các mô hình phân loại. Demo web hiển thị dữ liệu đã xử lý và dự đoán. Ghost là nhãn vận hành của nghiên cứu, không chứng minh khách hàng đã rời bỏ cửa hàng.
 
 ### 12 ý chính cho slide
 
 1. **Vấn đề:** Cần nhận biết visitor có khả năng giảm tương tác sau T. Không có nhãn churn thật hay danh tính khách hàng đã xác minh.
 2. **Nguồn:** Retailrocket Kaggle v2, 2.756.101 sự kiện, SHA-256 của `events.csv` là `3745aa83…cfecbf9e7`; file gốc không được đưa lên Git. Cần ghi công nguồn và tuân thủ giấy phép CC BY-NC-SA 4.0.
-3. **Thiết kế thời gian:** Baseline 4 tuần, observation 2 tuần trước T, confirmation 2 tuần sau T. Tất cả là đề xuất D-02/D-03. Đặc trưng kết thúc trước T. Horizon chưa đủ quan sát là `unknown`, không gán bằng 0.
-4. **Cohort:** 97.489 snapshot đủ lịch sử, 27.327 visitor khác nhau; 85.899 snapshot có horizon chín, 11.590 chưa chín. Trong hàng có nhãn chín có 2.619 Ghost, 9.263 Active, 71.301 Inactive và 2.716 Recovered. Đây là số snapshot lặp visitor, không phải số người độc lập.
-5. **Thống kê mô tả và suy luận:** Bảng mô tả theo trạng thái có N và missingness. Kiểm định Welch dùng một snapshot chín mới nhất mỗi visitor, rồi lọc Ghost/Active: 371 Ghost và 896 Active. Recency trước T của Ghost cao hơn trung bình 11,39 ngày; KTC 95% [10,27; 12,51], p = 7,52 × 10⁻⁶³, Cohen d = 1,71. Đây là liên hệ quan sát, không phải tác động nhân quả.
-6. **Hồi quy tuyến tính:** Biến phụ thuộc là số phiên trong 2 tuần sau T chia 2, đơn vị phiên/tuần. 43.536 hàng train, 17.368 hàng test không trùng visitor train. Mô hình nhiều biến có R² train 0,355 và RMSE test 0,870. Hệ số `sessions_4w` 0,127 [0,106; 0,148]; OLS dự đoán âm cho 5.927 hàng test, nên mô hình đếm phù hợp hơn cho triển khai.
-7. **Logistic suy luận:** Bài toán là Ghost so với các trạng thái chín khác, khác tập dân số của AI. Test có 15.470 hàng, 316 Ghost (2,04%). PR-AUC 0,096 so với mức không kỹ năng 0,020; ROC-AUC 0,761. Với ngưỡng chọn từ validation là 0,10, recall chỉ 5,7% (18/316), nên không dùng logistic này để ra quyết định cảnh báo.
-8. **Dự báo:** Có 12 điểm tỷ lệ Ghost theo tuần chín nhãn. Chuỗi quá ngắn để chọn và đánh giá ARIMA ổn định; dùng baseline giữ tỷ lệ chín gần nhất. Ba mốc backtest cho MAE 0,00255 trên thang tỷ lệ, tương đương khoảng 0,255 điểm phần trăm. Demo hiển thị hai tuần tương lai; không có khoảng tin cậy.
-9. **Model phân loại Ghost so với Active:** Split theo thời gian và visitor, có purge nhãn: train 2.214, validation 454, test 430 hàng; test có 109 Ghost. XGBoost + Platt được chọn trên validation PR-AUC, đạt test PR-AUC 0,928 [0,887; 0,958]. EDS rule 0,802, Decision Tree của Thành 0,927, Gaussian NB của Lâm 0,667; mức không kỹ năng xấp xỉ 0,254.
-10. **Kiểm tra vòng lặp định nghĩa nhãn:** Nhãn chia số phiên tương lai cho số phiên baseline, trong khi model thấy baseline. Bỏ tên các biến baseline/decay nhưng giữ các cửa sổ chồng lấn vẫn đạt 0,909; chỉ giữ 10 biến của observation 1–2 tuần thì còn 0,607. Vì vậy điểm 0,928 phụ thuộc mạnh vào lịch sử baseline, chưa chứng minh tín hiệu cảnh báo độc lập mạnh.
+3. **Thiết kế thời gian:** Baseline 4 tuần, observation 2 tuần trước T, confirmation 4 tuần sau T. Đặc trưng kết thúc trước T. Horizon chưa đủ quan sát là `unknown`, không gán bằng 0.
+4. **Cohort:** 97.489 snapshot đủ lịch sử, trong đó 72.711 có nhãn chín và 24.778 bị right-censored/unknown. Nhãn chín gồm 5.810 Ghost, 8.405 Active, 56.374 Inactive và 2.122 Recovered. Đây là snapshot lặp visitor, không phải số khách hàng độc lập.
+5. **Thống kê mô tả và suy luận:** Bảng mô tả có N và missingness theo nhãn. Welch dùng snapshot chín mới nhất của mỗi visitor, sau đó lọc Ghost/Active: 1.271 Ghost, 1.008 Active. Recency trước T của Ghost cao hơn 11,53 ngày; KTC 95% [10,89; 12,17], p = 1,44 × 10⁻²⁰⁶, Cohen d = 1,37. Đây là liên hệ quan sát, không phải tác động nhân quả.
+6. **Hồi quy tuyến tính:** Kết quả là số phiên/tuần trong 4 tuần xác nhận. Mô hình nhiều biến có 29.290 hàng train (12.412 visitor) và 12.915 hàng test; R² = 0,372, RMSE test = 0,718. Hệ số `feature_sessions_4w` là 0,118 [0,094; 0,141]. OLS dự đoán âm cho 4.047 hàng test dù số phiên không âm; đây là giới hạn rõ ràng của mô hình.
+7. **Logistic suy luận:** Ghost so với mọi trạng thái chín khác, khác bài toán Ghost-versus-Active của AI. Test có 5.816 hàng, 386 Ghost (6,64%). PR-AUC 0,156; ROC-AUC 0,671. Với ngưỡng validation 0,10, precision 0,148 và recall 0,373; kết quả còn yếu cho quyết định cảnh báo.
+8. **Dự báo:** Chỉ có 10 điểm tỷ lệ Ghost theo tuần đã chín. Baseline giữ tỷ lệ chín gần nhất có 2 mốc backtest: MAE 0,00828, RMSE 0,00841 trên thang tỷ lệ. Hai dự báo khám phá cho 21 và 28/9 đều là 8,63%; không có khoảng dự báo. Không đủ chuỗi để chọn ARIMA đáng tin cậy.
+9. **Model phân loại Ghost so với Active:** Split thời gian và visitor có purge nhãn; train 1.510, validation 352, test 330 hàng, với 153 Ghost ở test. XGBoost + Platt có PR-AUC 0,9097 [0,8696; 0,9391]. Decision Tree đạt 0,8944, Gaussian NB 0,8076; baseline PR-AUC 0,4636. Test chỉ là một tuần chín và còn nhỏ.
+10. **Kiểm tra vòng lặp định nghĩa nhãn:** Với XGBoost, bỏ các thành phần baseline được đặt tên nhưng giữ cửa sổ chồng lấn cho PR-AUC 0,8988; chỉ dùng 10 đặc trưng observation 1–2 tuần cho 0,8070. Tín hiệu giảm khi bỏ baseline, nhưng ít hơn kết quả 4+2+2 trước đó; không được ghép hai scenario thành một kết luận.
 11. **Demo:** Overview → Customers → một timeline theo T → Statistics → Forecast → Predict → Model Metrics. Chọn một hàng Ghost thật trong danh sách và giữ `snapshot_date`. Gửi ID lạ để cho thấy 404; ngày không hợp lệ cho thấy 422. Cả 7 API đã qua smoke với artifact thật và `ENABLE_DEMO_FIXTURES` tắt.
 12. **Kết luận và giới hạn:** Nhóm có một nghiên cứu tái tạo được và demo chạy xuyên suốt. Phát hiện chính là baseline rất quan trọng cho nhãn tương đối. Chỉ nên dùng điểm số như tín hiệu nghiên cứu trên cohort này; chưa đủ bằng chứng cho hệ thống tự động tác động khách hàng. D-01–D-05 và SEM D-07 cần xác nhận trước khi gọi kết quả là cuối cùng.
 
 ### Ba câu hỏi dễ gặp
 
-**Tại sao tỷ lệ Ghost ở dashboard thấp hơn 25% trong bảng model?** Dashboard chia 2.619 Ghost cho toàn bộ 97.489 snapshot, gồm inactive, unknown và nhiều hàng lặp. AI chỉ học và đánh giá Ghost so với Active sau khi lọc nhãn chín và chia visitor/time, nên test prevalence là 109/430 = 25,35%. Hai mẫu số khác nhau.
+**Tại sao tỷ lệ Ghost ở dashboard khác 46,36% trong bảng model?** Dashboard dùng 5.810 Ghost trên 97.489 history-eligible snapshots, gồm trạng thái khác và nhiều hàng lặp. AI đánh giá Ghost so với Active trên test visitor-disjoint một tuần: 153/330 = 46,36%. Hai mẫu số và hai quần thể khác nhau.
 
-**PR-AUC 0,928 có nghĩa model biết ai sẽ bỏ đi không?** Không. Nó đo khả năng xếp hạng nhãn Ghost do nhóm định nghĩa trên 430 hàng test. Khi không dùng thông tin baseline, PR-AUC xuống 0,607. Không có nhãn churn thật hoặc thử nghiệm can thiệp.
+**PR-AUC 0,9097 có nghĩa model biết ai sẽ bỏ đi không?** Không. Nó đo khả năng xếp hạng nhãn Ghost do nhóm định nghĩa trên 330 hàng test. Khi chỉ dùng đặc trưng observation, PR-AUC là 0,8070. Không có nhãn churn thật hoặc thử nghiệm can thiệp.
 
-**Tại sao không có SEM hoặc ARIMA?** Event log không có mô hình đo lường latent đã được định nghĩa, nên không thể xuất hệ số/fit SEM có cơ sở; nhóm cần hỏi giảng viên liệu có chấp nhận phân tích hồi quy với giới hạn này. Với 12 tuần nhãn chín, ARIMA chưa có đủ chuỗi để chọn và kiểm định; nhóm báo cáo baseline và sai số backtest nhỏ mẫu.
+**Tại sao không có SEM hoặc ARIMA?** Event log không có mô hình đo lường latent đã được định nghĩa, nên nhóm cần hỏi giảng viên hướng xử lý SEM. Với 10 tuần nhãn chín và hai mốc backtest, ARIMA chưa có đủ chuỗi để chọn và kiểm định; nhóm báo cáo baseline và sai số trên mẫu nhỏ.
 
 ### Việc cần chuẩn bị trước lúc vào phòng
 
