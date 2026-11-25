@@ -19,7 +19,9 @@ from backend.app.services.customer_service import _load_customers_pool
 
 _runtime_slots = BoundedSemaphore(2)
 _runtime_executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="predict")
-INFERENCE_TIMEOUT_SECONDS = 5.0
+# A cold real-data prediction can load the model and the 97k-row feature table.
+# Allow enough time for that first request on a demo machine before returning 504.
+INFERENCE_TIMEOUT_SECONDS = 15.0
 
 
 def _call_runtime(payload: dict) -> dict:
