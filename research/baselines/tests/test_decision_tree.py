@@ -72,7 +72,7 @@ def test_runs_on_disjoint_temporal_splits_and_records_provenance(tmp_path):
     [
         (lambda data: data[6].update(customer_id=data[0]["customer_id"]), "both train and validation"),
         (lambda data: data[0].update(feature_end="2026-01-02"), "after snapshot_date"),
-        (lambda data: data[0].update(label_end="2026-01-15"), "overlap"),
+        (lambda data: data[0].update(label_end="2026-01-16"), "overlap"),
         (lambda data: data[0].update(label_end="2026-03-01"), "not fully observable"),
         (lambda data: data[0].update(target_ghost="1"), "conflicts"),
     ],
@@ -87,3 +87,8 @@ def test_rejects_leakage_and_invalid_labels(tmp_path, change, message):
 def test_rejects_target_as_feature(tmp_path):
     with pytest.raises(ValueError, match="future-label field"):
         execute(tmp_path, rows(), ["target_ghost"])
+
+def test_boundary_label_is_available_at_next_snapshot(tmp_path):
+    data = rows()
+    data[0]["label_end"] = "2026-01-15"
+    assert execute(tmp_path, data)["test"]["n"] == 6

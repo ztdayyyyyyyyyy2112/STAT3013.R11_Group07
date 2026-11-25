@@ -32,7 +32,8 @@ def call(*args: str) -> None:
 
 
 def run(from_processed: bool = False) -> None:
-    config = json.loads((ROOT / "data/config/pipeline.json").read_text(encoding="utf-8"))
+    config_path = ROOT / "data/config/pipeline.json"
+    config = json.loads(config_path.read_text(encoding="utf-8"))
     observed_through = config["time"]["observed_through"][:10]
     if not from_processed:
         call("data.scripts.run_pipeline", "--mode", "audit_compat")
@@ -41,6 +42,8 @@ def run(from_processed: bool = False) -> None:
         manifest = json.loads((PROCESSED / "manifest.json").read_text(encoding="utf-8"))
         if manifest["source"]["sha256"] != config["source"]["sha256"]:
             raise ValueError("Processed source hash differs from the configured raw file")
+        if manifest.get("config_sha256") != sha(config_path):
+            raise ValueError("Processed config differs from the current pipeline config; rebuild from raw events")
 
     call("research.statistics.inferential")
     forecast_dir = PROCESSED / "forecasting"
@@ -62,7 +65,7 @@ def run(from_processed: bool = False) -> None:
         "forecast_analysis_sha256": sha(forecast_dir / "forecast.json"),
         "api_result_sha256": sha(api_forecast), "n_mature_weeks": forecast["n_weeks"],
         "method": forecast["method"], "test_metrics": forecast["test_metrics"],
-        "decision_status": "Exploratory under proposed 4+2+2 cohort and operational label",
+        "decision_status": "Exploratory under 4+2+4 cohort and operational label",
     }
     (ROOT / "research/forecasting/analysis_manifest.json").write_text(
         json.dumps(forecast_meta, indent=2), encoding="utf-8")
@@ -73,9 +76,9 @@ def run(from_processed: bool = False) -> None:
     predictors = ["feature_sessions_4w", "feature_views_4w", "feature_recency_days"]
     call("research.regression.linear_models", "--input", str(regression / "ols_input.csv"),
          "--output-dir", str(results), "--predictors", *predictors,
-         "--train-end", "2015-08-03", "--test-start", "2015-08-17",
+         "--train-end", "2015-08-03", "--test-start", "2015-08-10",
          "--observed-through", observed_through, "--data-mode", "real",
-         "--outcome-definition", "future sessions per week over the 2-week confirmation horizon")
+         "--outcome-definition", "future sessions per week over the 4-week confirmation horizon")
     call("research.regression.logistic_inference", "--input", str(regression / "logit_input.csv"),
          "--outdir", str(results), "--observed-through", observed_through, "--mode", "real")
     call("research.regression.ols_diagnostics", "--input", str(regression / "ols_input.csv"),

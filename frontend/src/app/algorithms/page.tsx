@@ -48,7 +48,7 @@ export default function AlgorithmsPage() {
     <p className="eyebrow">NGHIÊN CỨU / ALGORITHMS</p>
     <div className="title-row"><div><h1>Thuật toán đã chạy</h1><p className="subtitle">Kết quả tổng hợp từ các artifact nghiên cứu. Bấm từng thuật toán để xem ý nghĩa và giới hạn.</p></div></div>
     {isMockMode() ? <section className="empty-panel"><h2>Chỉ hiển thị ở real mode</h2><p>Đặt NEXT_PUBLIC_API_MODE=real và khởi động lại website để đối chiếu với API dữ liệu thật.</p></section> : <>
-      <div className="notice" role="status"><strong>Dữ liệu Retailrocket thật · thiết kế 4+2+2 đang đề xuất.</strong><span>Các bảng là kết quả đã tính, không huấn luyện lại khi bấm. Mỗi bài toán có tập đánh giá khác nhau.</span></div>
+      <div className="notice" role="status"><strong>Dữ liệu Retailrocket thật · thiết kế 4+2+4.</strong><span>Các bảng là kết quả đã tính, không huấn luyện lại khi bấm. Mỗi bài toán có tập đánh giá khác nhau.</span></div>
       <nav className="algorithm-jumps" aria-label="Đi tới nhóm thuật toán">
         <a href="#thong-ke">1. Kiểm định và hồi quy</a>
         <a href="#du-bao">2. Dự báo</a>

@@ -71,7 +71,7 @@ def analyze(features: pd.DataFrame, labels: pd.DataFrame) -> tuple[dict, dict]:
         }],
         "assumptions": [
             "Inferential rows contain one latest mature snapshot per visitor; descriptive groups retain repeated snapshots.",
-            "Ghost and active are operational labels under the proposed 4+2+2 configuration, not externally validated churn.",
+            "Ghost and active are operational labels under the 4+2+4 configuration, not externally validated churn.",
             "The test is exploratory and does not establish causation or model performance.",
         ],
     }

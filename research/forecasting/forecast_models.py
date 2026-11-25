@@ -27,10 +27,14 @@ def arima_fit(series,order):
     if not fit.mle_retvals.get('converged',True):raise ValueError('ARIMA did not converge')
     return fit
 
+# Four mature points let the naive backtest start with a four-week label delay.
+NAIVE_MIN_HISTORY = 4
+
 def forecast_at(d,target,order=None):
-    # Forecast is issued at target week's start; only labels matured strictly before it are available.
-    known=d[(d.label_end<target)&(d.week_start<target)]
-    minimum = 12 if order is not None else 6
+    # Forecast is issued at target week's start; a label window [T, label_end) is
+    # complete, and therefore available, once label_end <= target.
+    known=d[(d.label_end<=target)&(d.week_start<target)]
+    minimum = 12 if order is not None else NAIVE_MIN_HISTORY
     if len(known)<minimum:raise ValueError('Too few mature observations at forecast origin')
     if not known.week_start.diff().dropna().eq(pd.Timedelta(days=7)).all():raise ValueError('Mature history has gaps')
     steps=int((target-known.week_start.iloc[-1]).days//7)
@@ -55,15 +59,15 @@ def run(rates_path,outdir,observed_through,mode='real',horizon=4):
     d=d[d.label_end<=end].copy();d['rate']=d.ghost_count/d.eligible_count
     if not d.week_start.diff().dropna().eq(pd.Timedelta(days=7)).all():raise ValueError('Weekly gaps: do not silently interpolate rates')
     d.to_csv(outdir/'weekly_rates_mature.csv',index=False)
-    if len(d)<10 or (d.label_end < d.week_start.iloc[int(len(d)*.8)]).sum()<6:
+    if len(d)<10 or (d.label_end <= d.week_start.iloc[int(len(d)*.8)]).sum()<NAIVE_MIN_HISTORY:
         payload={'data_mode':mode,'available':False,'reason':'Insufficient mature weekly bins or available history at the first test origin','n_weeks':len(d)}
         save_json(outdir/'forecast.json',payload);return payload
     split1=int(len(d)*.6);split2=int(len(d)*.8)
     test=d.iloc[split2:]
     validation=d.iloc[split1:split2]
-    validation=validation[validation.label_end < test.week_start.iloc[0]]
+    validation=validation[validation.label_end <= test.week_start.iloc[0]]
     selected=None;comparisons=[]
-    if len(d)>=40 and len(validation)>=2 and (d.label_end < validation.week_start.iloc[0]).sum()>=12 and d.rate.nunique()>1:
+    if len(d)>=40 and len(validation)>=2 and (d.label_end <= validation.week_start.iloc[0]).sum()>=12 and d.rate.nunique()>1:
         for order in [(1,0,0),(0,1,1)]:
             try:
                 ps=[forecast_at(d,t,order)[0] for t in validation.week_start]
@@ -89,7 +93,7 @@ def run(rates_path,outdir,observed_through,mode='real',horizon=4):
     actual=[r['actual'] for r in rows]
     model_metrics={'naive':error_metrics(actual,[r['naive'] for r in rows]),'selected':error_metrics(actual,[r['predicted'] for r in rows])}
     validation_start = d.week_start.iloc[split1]
-    train=d[(d.week_start<validation_start)&(d.label_end<validation_start)]
+    train=d[(d.week_start<validation_start)&(d.label_end<=validation_start)]
     diagnostics = {}
     if len(train) >= 12 and train.rate.nunique() > 1:
         adf = adfuller(train.rate)
@@ -113,7 +117,7 @@ def run(rates_path,outdir,observed_through,mode='real',horizon=4):
         forecasts.append({'week_start':target.strftime('%Y-%m-%d'),'rate':point,'lower_ci':lo,'upper_ci':hi})
     payload={'data_mode':mode,'available':True,'method':f'ARIMA{selected}' if fit is not None else 'Last mature value (naive)',
              'observed_through':str(end.date()),'n_weeks':len(d),'denominator':'Eligible visitors with known mature operational labels, one snapshot per visitor per weekly bin',
-             'availability_policy':'Backtest origin=target week start; history label_end must be strictly earlier. Label-delay gaps are bridged.',
+             'availability_policy':'Backtest origin=target week start; history label_end must be no later than the origin (half-open label windows). Label-delay gaps are bridged.',
              'history':[{'week_start':r.week_start.strftime('%Y-%m-%d'),'rate':r.rate} for r in d.itertuples()],
              'predictions':forecasts,'test_metrics':model_metrics,'validation_candidates':comparisons,'test_fallback_origins':fallback_origins,'diagnostics':diagnostics,
              'limitations':['ARIMA bounds clipped to [0,1]; approximate intervals','Repeated visitors across weeks may induce dependence','Synthetic series exercises code only'] if mode=='demo' else ['Approximate clipped ARIMA intervals','Operational labels and finite horizon; verify weekly denominators', 'Short series: the naive holdout has very few weekly origins and no interval when ARIMA is unsupported']}
@@ -124,7 +128,7 @@ def run(rates_path,outdir,observed_through,mode='real',horizon=4):
         'predictions': [{'date': row['week_start'], 'value': row['rate']} for row in forecasts],
         'lower_ci': [{'date': row['week_start'], 'value': row['lower_ci']} for row in forecasts if row['lower_ci'] is not None],
         'upper_ci': [{'date': row['week_start'], 'value': row['upper_ci']} for row in forecasts if row['upper_ci'] is not None],
-        'dataset_notice': f'{mode.upper()} | Retailrocket weekly operational ghost rate; proposed 4+2+2 cohort/label, exploratory forecast',
+        'dataset_notice': f'{mode.upper()} | Retailrocket weekly operational ghost rate; 4+2+4 cohort/label, exploratory forecast',
         'method': payload['method'], 'unit': 'week', 'series_length': len(d),
         'train_end': d.week_start.iloc[-1].strftime('%Y-%m-%d'),
     }

@@ -3,9 +3,11 @@
 Rules
 1. Time: train snapshots < validation snapshots < test snapshots. The last
    `test_weeks` mature snapshot weeks are the test period.
-2. Purge: every label window [T, label_end) of an earlier split ends strictly
-   before the first snapshot of the next split, so no label period overlaps
-   (same strict check as research/baselines/decision_tree.py).
+2. Purge: every label window [T, label_end) of an earlier split ends no later
+   than the first snapshot of the next split. The window is half-open, so a
+   label ending exactly at the next start shares no time with it (same check
+   as research/baselines/decision_tree.py). This is required for the 4+2+4
+   design, whose 4-week horizon leaves only ten mature snapshot weeks.
 3. Visitors: each visitor is hashed (SHA-256 of seed + customer_id) into
    exactly one bucket (train / validation / test); a bucket only contributes
    rows inside its own period. No visitor appears in two splits, and the
@@ -64,17 +66,17 @@ def plan_split(data: pd.DataFrame, val_weeks: int | None = None, test_weeks: int
         raise ValueError("Need at least 3 snapshot dates")
     test_dates = dates[-test_weeks:]
     test_start = pd.Timestamp(test_dates[0])
-    # validation rows must have label_end < test_start
-    val_pool = [d for d in dates if pd.Timestamp(d) + horizon < test_start]
+    # validation rows must have label_end <= test_start (half-open windows)
+    val_pool = [d for d in dates if pd.Timestamp(d) + horizon <= test_start]
     if len(val_pool) < val_weeks + 1:
         raise ValueError("Not enough snapshot weeks for train/validation/test with purging")
     val_dates = val_pool[-val_weeks:]
     val_start = pd.Timestamp(val_dates[0])
-    train_pool = [d for d in dates if pd.Timestamp(d) + horizon < val_start]
+    train_pool = [d for d in dates if pd.Timestamp(d) + horizon <= val_start]
     if not train_pool:
         raise ValueError("No training weeks left after purging")
     fmt = lambda d: pd.Timestamp(d).strftime("%Y-%m-%d")  # noqa: E731
-    kind = "visitor-temporal-v1" if visitor_disjoint else "temporal-only-v1"
+    kind = "visitor-temporal-v2" if visitor_disjoint else "temporal-only-v2"
     buckets = f"_f{'-'.join(str(int(round(f * 100))) for f in fractions)}" if visitor_disjoint else ""
     version = f"{kind}_tr{fmt(train_pool[-1])}_va{fmt(val_start)}_te{fmt(test_start)}{buckets}_s{seed}"
     return SplitPlan(fmt(train_pool[-1]), fmt(val_start), fmt(val_dates[-1]), fmt(test_start),
@@ -86,9 +88,9 @@ def assign_split(data: pd.DataFrame, plan: SplitPlan) -> pd.Series:
     snap = data["snapshot_date"]
     day = lambda s: pd.Timestamp(s, tz="UTC")  # noqa: E731
     period = pd.Series(None, index=data.index, dtype="object")
-    period[(snap <= day(plan.train_end)) & (data["label_end_utc"] < day(plan.val_start))] = "train"
+    period[(snap <= day(plan.train_end)) & (data["label_end_utc"] <= day(plan.val_start))] = "train"
     period[(snap >= day(plan.val_start)) & (snap <= day(plan.val_end))
-           & (data["label_end_utc"] < day(plan.test_start))] = "validation"
+           & (data["label_end_utc"] <= day(plan.test_start))] = "validation"
     period[(snap >= day(plan.test_start)) & (snap <= day(plan.test_end))] = "test"
     if not plan.visitor_disjoint:
         return period
@@ -113,7 +115,7 @@ def validate_split(parts: dict[str, pd.DataFrame], visitor_disjoint: bool = True
         if visitor_disjoint and ids[a] & ids[b]:
             raise ValueError(f"customer_id appears in both {a} and {b}")
     for early, late in (("train", "validation"), ("validation", "test")):
-        if parts[early]["label_end_utc"].max() >= parts[late]["snapshot_date"].min():
+        if parts[early]["label_end_utc"].max() > parts[late]["snapshot_date"].min():
             raise ValueError(f"{early} labels overlap the {late} snapshot period")
 
 
@@ -139,7 +141,7 @@ def manifest(data: pd.DataFrame, parts: dict[str, pd.DataFrame], plan: SplitPlan
         "splits": summary, "assignment_sha256": digest,
         "rules": [
             "time-ordered periods; test = last mature weeks",
-            "strict purge: earlier label_end < next split's first snapshot",
+            "half-open purge: earlier label_end <= next split's first snapshot",
             "visitor hashed into one bucket; bucket contributes only within its period"
             if plan.visitor_disjoint else "time-only sensitivity: visitors may repeat across splits",
         ],
