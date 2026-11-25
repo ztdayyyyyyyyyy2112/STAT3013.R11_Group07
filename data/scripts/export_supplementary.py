@@ -106,6 +106,7 @@ def _gap_sensitivity(events: pd.DataFrame, features: pd.DataFrame, labels: pd.Da
         counts = features[["visitorid", "snapshot_date"]].copy()
         counts["baseline"] = 0.0
         counts["observation"] = 0.0
+        counts["confirmation"] = 0.0
         for snapshot, indices in counts.groupby("snapshot_date", sort=True).groups.items():
             t = pd.Timestamp(snapshot)
             ids = counts.loc[indices, "visitorid"]
@@ -113,12 +114,14 @@ def _gap_sensitivity(events: pd.DataFrame, features: pd.DataFrame, labels: pd.Da
             base = by_snapshot.loc[(by_snapshot.week >= t - pd.Timedelta(7 * (scenario["baseline_weeks"] + scenario["observation_weeks"]), "D")) &
                                    (by_snapshot.week < t - pd.Timedelta(7 * scenario["observation_weeks"], "D"))]
             obs = by_snapshot.loc[(by_snapshot.week >= t - pd.Timedelta(7 * scenario["observation_weeks"], "D")) & (by_snapshot.week < t)]
+            conf = by_snapshot.loc[(by_snapshot.week >= t) & (by_snapshot.week < t + pd.Timedelta(7 * scenario["confirmation_weeks"], "D"))]
             counts.loc[indices, "baseline"] = base.groupby("visitorid").sessions.sum().reindex(ids, fill_value=0).to_numpy() / scenario["baseline_weeks"]
             counts.loc[indices, "observation"] = obs.groupby("visitorid").sessions.sum().reindex(ids, fill_value=0).to_numpy() / scenario["observation_weeks"]
-        data = labels[["visitorid", "snapshot_date", "label_end_utc", "future_events", "future_sessions"]].merge(counts, on=["visitorid", "snapshot_date"], validate="one_to_one")
+            counts.loc[indices, "confirmation"] = conf.groupby("visitorid").sessions.sum().reindex(ids, fill_value=0).to_numpy() / scenario["confirmation_weeks"]
+        data = labels[["visitorid", "snapshot_date", "label_end_utc", "future_events"]].merge(counts, on=["visitorid", "snapshot_date"], validate="one_to_one")
         base = data.baseline
         inactive = data.future_events.eq(0)
-        confirmation_rate = data.future_sessions / scenario["confirmation_weeks"]
+        confirmation_rate = data.confirmation
         theta = config["labels"]["preferred_theta"]
         ghost = data.future_events.gt(0) & (confirmation_rate / base < theta) & base.gt(0)
         recovered = (data.observation / base < theta) & (confirmation_rate / base >= theta) & ~inactive & base.gt(0)
