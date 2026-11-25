@@ -1,30 +1,30 @@
 {
   "data_mode": "real",
   "training_cutoff": "2015-08-03 00:00:00+00:00",
-  "n": 43536,
+  "n": 29290,
   "covariance": "cluster",
   "vif": {
-    "feature_sessions_4w": 1.5889910127728715,
-    "feature_views_4w": 1.4129644026869232,
-    "feature_recency_days": 1.151941901485769
+    "feature_sessions_4w": 1.6821887037248708,
+    "feature_views_4w": 1.4977813693708648,
+    "feature_recency_days": 1.1558559515264413
   },
   "breusch_pagan_p": null,
   "bp_note": "Omitted for clustered rows",
-  "influence_flags": 1602,
-  "cook_threshold": 9.187798603454613e-05,
-  "baseline_adjusted_r2": 0.3538716152859852,
-  "full_adjusted_r2": 0.35483198845601815,
+  "influence_flags": 1001,
+  "cook_threshold": 0.00013656538067599862,
+  "baseline_adjusted_r2": 0.3718385286146859,
+  "full_adjusted_r2": 0.3720398863407369,
   "full_coefficients": {
-    "const": -0.16894127421809335,
-    "feature_sessions_4w": 0.12723209849347886,
-    "feature_views_4w": 0.0011029381887063857,
-    "feature_recency_days": -0.0013990370934466546
+    "const": -0.19978258345164368,
+    "feature_sessions_4w": 0.11758777218378433,
+    "feature_views_4w": 0.00044168180908912553,
+    "feature_recency_days": 0.0011433038869114271
   },
   "sensitivity_coefficients": {
-    "const": 0.0533594817681014,
-    "feature_sessions_4w": 0.05578214338676048,
-    "feature_views_4w": 0.00030298267011711884,
-    "feature_recency_days": -0.004302962768897948
+    "const": 0.04266856335871683,
+    "feature_sessions_4w": 0.049467264396757596,
+    "feature_views_4w": 0.0005022933356877027,
+    "feature_recency_days": -0.003352125749406217
   },
   "interpretation": "Influence flags warrant review. The full fit retains every training row."
 }

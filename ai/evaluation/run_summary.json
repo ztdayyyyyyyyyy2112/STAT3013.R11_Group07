@@ -1,6 +1,6 @@
 {
   "pipeline_version": "ai-pipeline-1.0.0",
-  "generated_utc": "2026-11-20T05:50:16.805194+00:00",
+  "generated_utc": "2026-11-25T08:36:02.432088+00:00",
   "synthetic": false,
   "label_task": "ghost_vs_active",
   "label_spec": {
@@ -12,21 +12,21 @@
     ]
   },
   "label_version": "ghost-baseline-ratio-v1-proposed",
-  "scenario_id": "b4_o2_c2",
+  "scenario_id": "b4_o2_c4",
   "observed_through": "2015-09-14T00:00:00+00:00",
   "inputs": {
     "features": "data/processed/customer_features.parquet",
-    "features_sha256": "60a70a8ad8a857d1ed364f3f304b95a197a41b7ce0ec82fd3ddec85b0ef7516a",
+    "features_sha256": "8b2fcd37349e67254364d9950fb4d5965b33e1cf1bb233c15de985cd85743997",
     "labels": "data/processed/customer_labels.parquet",
-    "labels_sha256": "7d22c1de2516ea9374f6ec1275d74c023d19ab0360c54d6be162d4bb3a2e59d7"
+    "labels_sha256": "ee1c3b300afc98c6753eb8e33df040225f618d0f57d59d5e4d9b5bba0781b2ae"
   },
   "environment": {
-    "python": "3.14.3",
+    "python": "3.12.13",
     "sklearn": "1.9.1",
     "pandas": "2.3.3",
     "numpy": "2.5.4"
   },
-  "split_version": "visitor-temporal-v1_tr2015-07-06_va2015-07-27_te2015-08-24_f50-25-25_s3013",
+  "split_version": "visitor-temporal-v2_tr2015-06-22_va2015-07-20_te2015-08-17_f50-25-25_s3013",
   "primary_feature_set": "full",
   "features": [
     "feature_sessions_1w",
@@ -73,77 +73,77 @@
   ],
   "selected_model": {
     "name": "xgboost+platt",
-    "model_version": "ghost-xgboost-cal-27f274df",
+    "model_version": "ghost-xgboost-cal-7751ac34",
     "params": {
-      "max_depth": 3,
-      "min_child_weight": 10
+      "max_depth": 5,
+      "min_child_weight": 1
     },
     "selected_on": "validation PR-AUC among linear/tree/boosting models",
     "calibration": {
       "method": "Platt on visitor-grouped train out-of-fold scores",
-      "val_brier_raw": 0.06914,
-      "val_brier_calibrated": 0.06878,
+      "val_brier_raw": 0.10114,
+      "val_brier_calibrated": 0.09709,
       "applied": true
     }
   },
   "threshold": {
-    "operating_threshold": 0.05,
+    "operating_threshold": 0.09,
     "rule": "min expected cost on validation, C_FN=5.0, C_FP=1.0",
-    "f1_max_threshold": 0.48,
+    "f1_max_threshold": 0.29,
     "bands": {
-      "high": 0.05,
-      "medium": 0.05
+      "high": 0.09,
+      "medium": 0.09
     },
     "band_rule": "high >= operating threshold; medium >= threshold where validation recall >= 80%; else low"
   },
   "test": {
-    "support": 430,
-    "positives": 109,
-    "prevalence": 0.2534883720930233,
-    "threshold": 0.05,
-    "precision": 0.5956284153005464,
-    "recall": 1.0,
-    "f1": 0.7465753424657534,
-    "roc_auc": 0.970219211752265,
-    "pr_auc": 0.9279857205344674,
-    "brier": 0.0592147287504632,
-    "alert_rate": 0.4255813953488372,
+    "support": 330,
+    "positives": 153,
+    "prevalence": 0.4636363636363636,
+    "threshold": 0.09,
+    "precision": 0.6832579185520362,
+    "recall": 0.9869281045751634,
+    "f1": 0.8074866310160428,
+    "roc_auc": 0.9124847679184669,
+    "pr_auc": 0.9096507423334917,
+    "brier": 0.12143918899760926,
+    "alert_rate": 0.6696969696969697,
     "confusion_matrix": [
       [
-        247,
-        74
+        107,
+        70
       ],
       [
-        0,
-        109
+        2,
+        151
       ]
     ]
   },
-  "test_ece": 0.04192,
+  "test_ece": 0.06576,
   "bootstrap_ci_test": {
     "majority": {
       "n_boot_effective": 500,
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.203,
-        0.297
+        0.4121,
+        0.5152
       ],
       "roc_auc": [
         0.5,
         0.5
       ],
       "f1": [
-        0.3375,
-        0.458
+        0.5837,
+        0.68
       ],
       "recall": [
         1.0,
         1.0
       ],
       "precision": [
-        0.203,
-        0.297
+        0.4121,
+        0.5152
       ]
     },
     "rule_eds": {
@@ -151,24 +151,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.7314,
-        0.8631
+        0.8051,
+        0.8881
       ],
       "roc_auc": [
-        0.8209,
-        0.9123
+        0.8139,
+        0.8874
       ],
       "f1": [
-        0.6041,
-        0.7446
+        0.7417,
+        0.8416
       ],
       "recall": [
-        0.7527,
-        0.897
+        0.7057,
+        0.8349
       ],
       "precision": [
-        0.4926,
-        0.6634
+        0.7552,
+        0.8809
       ]
     },
     "logistic_regression": {
@@ -176,24 +176,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.8512,
-        0.9373
+        0.8773,
+        0.9425
       ],
       "roc_auc": [
-        0.9345,
-        0.9728
+        0.8858,
+        0.9434
       ],
       "f1": [
-        0.6581,
-        0.7903
+        0.7382,
+        0.8309
       ],
       "recall": [
-        0.8667,
-        0.9714
+        0.9375,
+        0.9933
       ],
       "precision": [
-        0.5226,
-        0.6841
+        0.6,
+        0.7261
       ]
     },
     "random_forest": {
@@ -201,24 +201,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.8862,
-        0.9589
+        0.8848,
+        0.9464
       ],
       "roc_auc": [
-        0.958,
-        0.9836
+        0.8964,
+        0.9471
       ],
       "f1": [
-        0.6701,
-        0.805
+        0.7575,
+        0.8478
       ],
       "recall": [
-        1.0,
-        1.0
+        0.9359,
+        0.988
       ],
       "precision": [
-        0.5039,
-        0.6737
+        0.6255,
+        0.754
       ]
     },
     "xgboost": {
@@ -226,24 +226,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.8872,
-        0.9583
+        0.8696,
+        0.9391
       ],
       "roc_auc": [
-        0.9559,
-        0.983
+        0.8809,
+        0.9395
       ],
       "f1": [
-        0.6833,
-        0.8109
+        0.763,
+        0.8553
       ],
       "recall": [
-        1.0,
+        0.9548,
         1.0
       ],
       "precision": [
-        0.519,
-        0.6819
+        0.6244,
+        0.7557
       ]
     },
     "svm_rbf": {
@@ -251,24 +251,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.727,
-        0.8782
+        0.8662,
+        0.9367
       ],
       "roc_auc": [
-        0.9117,
-        0.9578
+        0.8736,
+        0.9366
       ],
       "f1": [
-        0.5987,
-        0.7372
+        0.7203,
+        0.8141
       ],
       "recall": [
-        1.0,
-        1.0
+        0.9172,
+        0.986
       ],
       "precision": [
-        0.4273,
-        0.5838
+        0.5839,
+        0.709
       ]
     },
     "isolation_forest": {
@@ -276,24 +276,24 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.2552,
-        0.4161
+        0.4351,
+        0.581
       ],
       "roc_auc": [
-        0.5859,
-        0.7027
+        0.5278,
+        0.6546
       ],
       "f1": [
-        0.4113,
-        0.5369
+        0.5875,
+        0.6854
       ],
       "recall": [
-        0.8303,
-        0.9434
+        1.0,
+        1.0
       ],
       "precision": [
-        0.2664,
-        0.3832
+        0.4159,
+        0.5213
       ]
     },
     "xgboost+platt": {
@@ -301,30 +301,30 @@
       "unit": "visitor",
       "level": 0.95,
       "pr_auc": [
-        0.8872,
-        0.9583
+        0.8696,
+        0.9391
       ],
       "roc_auc": [
-        0.9559,
-        0.983
+        0.8809,
+        0.9395
       ],
       "f1": [
-        0.6714,
-        0.8082
+        0.7593,
+        0.8502
       ],
       "recall": [
-        1.0,
+        0.967,
         1.0
       ],
       "precision": [
-        0.5053,
-        0.6781
+        0.6183,
+        0.7444
       ]
     }
   },
   "explanations": {
     "permutation": "validation PR-AUC drop, 10 repeats",
     "local": "baseline replacement (train medians), probability points",
-    "shap": "SHAP (TreeExplainer), unit: model margin (log-odds for boosting, probability for forests), n=430 test rows"
+    "shap": "SHAP (TreeExplainer), unit: model margin (log-odds for boosting, probability for forests), n=330 test rows"
   }
 }
