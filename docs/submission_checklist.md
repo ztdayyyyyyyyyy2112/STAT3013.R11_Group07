@@ -2,15 +2,15 @@
 
 Deadline in the team assignment: **before 20 November 2026**. Complete each item only after opening the final artifact and checking its evidence. The course outline requires the full report, IEEE paper, and slides to be submitted directly to the course system; large code, data, or video files may be linked from cloud storage.
 
-## Status of the local defense build, 20 November 2026
+## Status of the local defense build, updated 25 November 2026
 
-- [x] Pinned Retailrocket `events.csv` was verified by byte count and SHA-256, and the 4+2+2 pipeline produced 97,489 history-eligible snapshots. Source, license, censoring, and sensitivity are recorded in E-01–E-03.
-- [x] Visitor-level inferential test, OLS, logistic inference, short-series naive forecast, shared-split ML comparison, and observation-only ablation were reproduced from real artifacts. See E-04–E-08. Their operational definitions remain proposals.
+- [x] Pinned Retailrocket `events.csv` was verified by byte count and SHA-256. The primary working 4+2+4 scenario produced 97,489 history-eligible snapshots: 72,711 mature and 24,778 right-censored. E-01–E-03 record source, cohort flow, and sensitivity; 4+2+2 is a separate comparison, and formal decisions remain open.
+- [x] Visitor-level inferential test, OLS, logistic inference, short-series naive forecast, shared-split ML comparison, and observation-only ablation were reproduced from real artifacts (E-04–E-08). In the 25 November 4+2+4 ML rerun, XGBoost+Platt test PR-AUC was 0.910 [0.870, 0.939], versus 0.848 for EDS and 0.807 for the observation-only ablation; the test covers one week (E-07). These are preliminary results, not approval of the operational definitions or split.
 - [x] The structural artifact checker passed 97,489 detail files; all seven real API routes and 404/422 cases passed. Python: 122 tests passed. Frontend: lint and real-mode production build passed.
 - [x] A 12-slide Vietnamese defense draft was exported and passed package/layout validation: `reports/slides/defense_deck.pptx`. The route-by-route speaker notes are in `reports/defense/brief.md` and `docs/demo_script.md`.
-- [x] An English full report DOCX of 29 A4 pages, with 14 figures and 21 tables, has been built and visually reviewed at `reports/full-report/GhostCustomer_STAT3013_Full_Report_EN.docx`. Final team factual/signature review remains open.
+- [x] An English full report DOCX of 29 A4 pages, with 14 figures and 21 tables, has been built and visually reviewed at `reports/full-report/GhostCustomer_STAT3013_Full_Report_EN.docx`. The current report uses the 4+2+4 working scenario; confirm the final DOCX and other artifacts match it. Human editing, citation verification, and final team factual/signature review remain open.
 - [ ] The two-column paper DOCX is a **7-page review draft** with figures and tables, but is not yet in the official IEEE template. Apply the official template and verify pagination before submission.
-- [ ] D-01–D-05 (cohort, label, windows and split) and D-07 (SEM) need a documented scientific/lecturer decision. No SEM result or ARIMA claim has been invented.
+- [ ] D-01–D-05 (cohort, label, windows and split) need documented team decisions and review; D-07 (SEM) needs lecturer clarification. D-06 forecast owner review also remains open. No SEM result or ARIMA claim has been invented.
 - [ ] A narrated demo video, similarity/AI audit screenshots, final class/group repo name, and course-system uploads require the responsible people and accounts. No submission is claimed.
 
 ## Research integrity
